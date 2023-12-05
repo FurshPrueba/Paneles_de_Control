@@ -1,0 +1,191 @@
+#contenedorAreas{ /* Esto va dentro de la linea de produccion principaly esta relacionado completamente a los procedimientos*/
+    box-shadow: 10px 10px 10px rgba(184, 184, 184, 0.8); /* Ajusta la opacidad aquí */
+    background: linear-gradient(
+        45deg,
+        rgb(0, 0, 0),   /* Escala de grises más clara */
+        rgb(92, 92, 92), /* Escala de grises intermedia */
+        rgb(139, 139, 139)   /* Escala de grises más clara */
+    );
+    padding: 0px;
+    border-radius: 10px;
+    margin-right: 30px;
+    width: 100%;
+    height: auto;
+    max-height: 270px;
+}
+/*Cunado se oprima el boton de sumar que se ponga opaco el fondo de las opcioens de la linea de produccion*/
+
+#contenedorAreas.fondoOpaco{
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.areaEscroleableY{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-left: 0;
+    scroll-snap-type: y mandatory; /* Establece el desplazamiento horizontal obligatorio */
+}
+/* PROCESOS DE LA LINEA DE PRODUCCION */
+.Areas{
+    border-radius: 10px;
+    height: auto;
+    max-height: 270px;
+}.Area{
+    box-shadow: 3px 3px 5px rgba(184, 184, 184, 0.8); /* Ajusta la opacidad aquí */
+    display: block;
+    align-content: center; /* Alinea al final del contenedor */
+    position: relative;
+    height: 60px;
+    padding-left: 6px;
+    margin-bottom: 0px;
+    overflow: visible; /* Permitir que el contenido desborde el contenedor */
+    padding-left: 100px;
+}.Area .numerador{
+    padding: 5px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 5px;
+    z-index: 1000;
+    height: 30px;
+    top: 15px;
+    margin-left: 4px;
+    margin-right: 4px;
+    color: #8a8a8a;
+    background-color: rgb(71, 71, 71);
+    border-radius: 10px;
+}.numerador h2{
+    color: #fff;
+}.espaciaAgregarArea{
+    box-shadow: 3px 3px 5px rgba(184, 184, 184, 0.8); /* Ajusta la opacidad aquí */
+    display: grid;
+    place-items: center; /* Centrar en ambos ejes (eje X y eje Y) */
+    position: relative;
+    height: 60px;
+    margin-bottom: 0px;
+    overflow: visible; /* Permitir que el contenido desborde el contenedor */
+}.espaciaAgregarArea .iconoSumaArea{
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out; /* Establece la propiedad, duración y función de temporización de la transición. */
+    position: absolute;
+    top: 12px;
+    left: 30px;
+    transform: translateX(-50%); /* Centra horizontalmente el hijo en relación al centro del padre */
+    background-color: #3da7b1; /* Ajusta el color de fondo del hijo según tus necesidades */
+    box-shadow: 0 0 10px rgba(132, 220, 247, 0.8); /* Ajusta los valores según tus preferencias */
+    color: #fff; /* Ajusta el color del texto según tus necesidades */
+    border-radius: 999px;
+    z-index: 1000;
+    overflow: visible; /* Ignora el desbordamiento del hijo */
+}.espaciaAgregarArea .iconoSumaArea  h1{
+    position: absolute;
+    top: -38px;
+    left: 3px;
+}.espaciaAgregarArea .iconoSumaArea:hover{
+    box-shadow: 0 0 5px rgba(44, 221, 124, 0.8); /* Ajusta la opacidad aquí */
+    background-color: #2ddbc4; /* Ajusta el color de fondo del hijo según tus necesidades */
+}.ImagenArea{
+    position: absolute;
+    width: 60px;
+    height: 40px;
+    top: 15px;
+    left: 140px;
+    border-radius: 10px;
+}.imagenPaso{
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.8); /* Ajusta la opacidad aquí */
+}.contenedorImagen{
+    display: inline-block;
+    position: relative;
+    margin: 5px;
+    padding: 0px;
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.8); /* Ajusta la opacidad aquí */
+}
+
+/*Cunado los procesos no tenan concorf=dancia (por su direccionalidad), todos tendran esta clase*/
+
+.Area.fondoOpaco{
+    background-color: #ff52525e;
+    box-shadow: 0 0 30px rgba(255, 66, 66, 0.712);
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+/*resto de estilos de elementos de los procesos*/
+.iconoSuma{
+    width: 25px;
+    height: 25px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out; /* Establece la propiedad, duración y función de temporización de la transición. */
+    position: absolute;
+    bottom: 0; /* Establece el borde inferior del hijo en la parte inferior del padre */
+    bottom: -15px;
+    transform: translateX(-50%); /* Centra horizontalmente el hijo en relación al centro del padre */
+    background-color: #81cdd3; /* Ajusta el color de fondo del hijo según tus necesidades */
+    box-shadow: 0 0 10px rgba(132, 220, 247, 0.8); /* Ajusta los valores según tus preferencias */
+    color: #fff; /* Ajusta el color del texto según tus necesidades */
+    border-radius: 999px;
+    z-index: 1000;
+}.iconoSuma h2{
+    padding: 0px;
+    padding-left: 5px;
+    margin: 0px;
+}.iconoAnular{/* Icono para reemplazar un proceso*/
+    width: 25px;
+    height: 25px;
+    top: 23px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out; /* Establece la propiedad, duración y función de temporización de la transición. */
+    position: absolute;
+    transform: translateX(-50%); /* Centra horizontalmente el hijo en relación al centro del padre */
+    box-shadow: 0 0 10px rgba(255, 240, 103, 0.8); /* Ajusta los valores según tus preferencias */
+    color: #ff5858; /* Ajusta el color del texto según tus necesidades */
+    border-radius: 999px;
+    z-index: 1000;
+}.iconoAnular img{
+    width: 25px;
+    height: 25px;
+    border-radius: 999px;
+    z-index: 1000;
+}.iconoBorrar{/* Icono para borrar un proceso*/
+    width: 25px;
+    height: 25px;
+    top: 23px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out; /* Establece la propiedad, duración y función de temporización de la transición. */
+    position: absolute;
+    transform: translateX(-50%); /* Centra horizontalmente el hijo en relación al centro del padre */
+    background-color: #ff8819;
+    box-shadow: 0 0 10px rgba(255, 240, 103, 0.8); /* Ajusta los valores según tus preferencias */
+    color: #ff5858; /* Ajusta el color del texto según tus necesidades */
+    border-radius: 999px;
+    z-index: 1000;
+}.iconoBorrar img{
+    width: 25px;
+    height: 25px;
+    border-radius: 999px;
+    z-index: 1000;
+}
+
+.espaciaAgregarImagen .iconoSuma{
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out; /* Establece la propiedad, duración y función de temporización de la transición. */
+    position: absolute;
+    transform: translateX(-50%); /* Centra horizontalmente el hijo en relación al centro del padre */
+    background-color: #4ce3ee; /* Ajusta el color de fondo del hijo según tus necesidades */
+    box-shadow: 0 0 10px rgba(132, 220, 247, 0.8); /* Ajusta los valores según tus preferencias */
+    color: #fff; /* Ajusta el color del texto según tus necesidades */
+    border-radius: 999px;
+    z-index: 1000;
+    overflow: visible; /* Ignora el desbordamiento del hijo */
+}

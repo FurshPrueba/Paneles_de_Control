@@ -1,0 +1,40 @@
+.procedimientoBorrado {
+    margin-left: -26px;
+    background-color: rgb(116, 116, 116);
+    box-shadow: 0 0 20px rgba(194, 194, 194, 0.678);
+    width: 100%;
+    height:60px;
+    left: 20px;
+    position: relative;
+}.borrado{
+    box-shadow: 0 0 20px rgba(194, 194, 194, 0.978);
+    background-color: #ff6c6c !important;
+    background-image: linear-gradient(45deg, transparent 25%, rgba(255, 124, 124, 0.5) 25%, rgba(255, 95, 95, 0.5) 50%, transparent 50%, transparent 75%, rgba(255, 69, 69, 0.5) 75%, rgba(255, 62, 62, 0.5) 100%);
+    background-size: 20px 20px; /* Ajusta el tamaño del tachado según tus preferencias */
+    background-repeat: repeat;
+    background-position: 0 0;
+}.procedimientoBorrado.borrado .anulado{
+    margin-left: -20px;
+    width: 100%;
+    height:60px;
+    left: 20px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(194, 194, 194, 0.978);
+    background-color: #ff6c6c !important;
+    background-image: linear-gradient(45deg, transparent 25%, rgba(255, 124, 124, 0.5) 25%, rgba(255, 95, 95, 0.5) 50%, transparent 50%, transparent 75%, rgba(255, 69, 69, 0.5) 75%, rgba(255, 62, 62, 0.5) 100%);
+    background-size: 20px 20px; /* Ajusta el tamaño del tachado según tus preferencias */
+    background-repeat: repeat;
+    background-position: 0 0;
+}.procedimientoBorrado.borrado .proceso.reemplazo{
+    margin-left: -20px;
+    width: 100%;
+    height:60px;
+    left: 20px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(194, 194, 194, 0.978);
+    background-color: #ff6c6c !important;
+    background-image: linear-gradient(45deg, transparent 25%, rgba(255, 124, 124, 0.5) 25%, rgba(255, 95, 95, 0.5) 50%, transparent 50%, transparent 75%, rgba(255, 69, 69, 0.5) 75%, rgba(255, 62, 62, 0.5) 100%);
+    background-size: 20px 20px; /* Ajusta el tamaño del tachado según tus preferencias */
+    background-repeat: repeat;
+    background-position: 0 0;
+}

@@ -1,0 +1,31 @@
+<%
+    const areaIDparseada = area.id.split('');
+    //Si es un area de bodega 
+    if(areaIDparseada[0] == "A"){ %>
+        <div class="Area trabajo" id="<%= area.id %>">
+            <h2><%= area.id %></h2>
+            <% productos.forEach((producto, indice)=>{ 
+                if(producto.areaID == area.id){ %>
+                    <li class="producto" id="<%= producto.productosID %>"><h2><%= producto.productosID %></h2></li>
+                <% } %>
+            <% }) %>
+
+            <div class="opcionClickeadoArea">
+            </div>
+        </div>
+    <% } 
+    //Si es un area de bodega
+    if(areaIDparseada[0] == "B"){ %>
+        <div class="Area Bodega" id="<%= area.id %>">
+            <h2><%= area.id %></h2>
+            <% productos.forEach((producto, indice)=>{ 
+                if(producto.areaID == area.id){ %>
+                    <li class="producto" id="<%= producto.productosID %>"><h2><%= producto.productosID %></h2></li>
+                <% } %>
+            <% }) %>
+
+            <div class="opcionClickeadoArea">
+            </div>        
+        </div>
+    <% } %>
+%>

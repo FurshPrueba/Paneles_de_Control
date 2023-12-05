@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linea de produccion</title>
+
+    <!--Css--->
+    <link rel="stylesheet" href="/css/PanelDeControl_Ingeniero-Industrial/opcionesDocumento.css">
+    <link rel="stylesheet" href="/css/PanelDeControl_Ingeniero-Industrial/opcionesAreas.css">    
+    <link rel="stylesheet" href="/css/PanelDeControl_Ingeniero-Industrial/procesosYProcedimientos.css">
+    <link rel="stylesheet" href="/css/PanelDeControl_Ingeniero-Industrial/procedimientoHijo.css">
+    <link rel="stylesheet" href="/css/PanelDeControl_Ingeniero-Industrial/ventanaEmergenteModal.css">
+    <link rel="stylesheet" href="/css/PanelDeControl_Ingeniero-Industrial/anulados.css">
+    <link rel="stylesheet" href="/css/PanelDeControl_Ingeniero-Industrial/borrados.css">
+     <!--Eventos hover de los iconos seleccionables-->
+    <link rel="stylesheet" href="/css/PanelDeControl_Ingeniero-Industrial/eventoHoverIconos.css">
+
+        
+    <!--Scripts-->
+    
+    <!--jquery-->
+    <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.13.2.custom/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/js/jquery-ui-1.13.2.custom/jquery-ui.min.css">
+    <link rel="stylesheet" href="/js/jquery-ui-1.13.2.custom/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="/js/jquery-ui-1.13.2.custom/jquery-ui.theme.min.css">   
+
+    <!--crear un nuevo conector-->
+    <script type="text/javascript" src="/js/PanelDeControl_Ingeniero-Industrial/configurarventanaEmergente.js"></script>
+    <script type="text/javascript" src="/js/PanelDeControl_Ingeniero-Industrial/eventoScrollNumerador.js"></script>
+    
+    
+    <!--Scrips para el icono de MAS-->
+    <script type="text/javascript" src="/js/PanelDeControl_Ingeniero-Industrial/iconoMas/interaccionIconoMas.js"></script>
+    <!--Contenido al precionar un area por el Icono de mas-->
+    <script type="text/javascript" src="/js/PanelDeControl_Ingeniero-Industrial/iconoMas/ventModalIconoMas.js"></script>
+
+    <script type="text/javascript" src="/js/PanelDeControl_Ingeniero-Industrial/iconoMas/invicivilizarAreasNoDisponibles.js"></script>
+
+    
+    <!--Scrips para el icono Anular-->
+        <script type="text/javascript" src="/js/PanelDeControl_Ingeniero-Industrial/iconoAnular/invicivilizarAreasNoDisponibles.js"></script>
+        <script type="text/javascript" src="/js/PanelDeControl_Ingeniero-Industrial/iconoAnular/inpociviizarIconoAnular.js"></script>
+    
+        <!--Funcionalidades priincipales, agregar y anular-->
+    
+        <script type="text/javascript" src="/js/PanelDeControl_Ingeniero-Industrial/iconoAnular/interaccionIconoAnular.js"></script>
+        <!--Contenido al precionar un area por el Icono de anular procedimiento-->
+        <script type="text/javascript" src="/js/PanelDeControl_Ingeniero-Industrial/iconoAnular/ventModalIconoAnular.js"></script>
+
+    <!--Scrips para el icono Anular-->
+        <script type="text/javascript" src="/js/PanelDeControl_Ingeniero-Industrial/iconoBorrar/interaccionIconoBorrar.js"></script>
+
+        
+    <!--Scrips para los PRODUCTOS y su aparicion-->
+        
+        <!--opciones de los productos (conectores y funcionalidades)-->
+        <script type="text/javascript" src="/js/PanelDeControl_Ingeniero-Industrial/panel_opcionesProducto.js"></script>
+</head>
+<body>
+    <div id="titulo">
+        <h1>Panel de control</h1>
+    </div>
+
+    <div id="LineaDeProduccion">
+        <div class="areaEscroleableX">
+            <ul id="contenedorProductos">
+                <% area.forEach((elemento, indice) => { %>
+                    <%- include('unidadArea.ejs', {
+                        area: {
+                            id: elemento.areaID
+                        }, 
+                        productos: productos
+                    }) %>
+                <% }) %> 
+            </ul>
+            <div id="LineaDeProduccionOpcionesProducto" style="width: 100%;">
+    
+            </div>
+        </div> 
+
+        <div id="ventanaConfirmacion">
+            <div id="contenidoVentanaConfirmacion"></div>
+        </div>
+
+        <div id="espacioPadding">
+
+        </div>
+    </div>
+    
+</body>
+</html>

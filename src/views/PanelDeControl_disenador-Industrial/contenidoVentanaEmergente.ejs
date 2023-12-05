@@ -1,0 +1,47 @@
+<div class="contenidoVentanaEmergente">
+    <h1>Imagen Seleccionada</h1>
+    <% if(tipoDeSituacion == 'seleccionarTipoDeBusqueda'){ %>
+        <div id="contenedorOpcionesDeBusqueda">
+            <div id="contenedorSubirLaImagen">
+                <h3>Sube imagen</h3>
+                <input id="elementoFile" type="file" name="file" style="display: none;">
+                <img src="/css/img/subirImagen.png" alt="ImagenReprecentativaSubidaImagen" id="subirLaImagen" class="ImagenesDeSubida">
+            </div>
+            <div id="contenedorPegarLaImagen">
+                <h3>Pega imagen</h3>
+                <input id="pegarLaImagen" class="ImagenesDeSubida" type="text" name="pegarLaImagen" placeholder="Pegar una URL de imagen aquí" style="font-size: 16px;" readonly>
+            </div>
+        </div>
+    <% }else if(tipoDeSituacion !== 'seleccionarTipoDeBusqueda'){ %>
+    <div id="contenedorImagenARecortar">
+        <img src="<%= urlBlob %>" alt="ImagenARecortar" id="ImagenARecortar">
+    </div>
+
+    <div id="contenedorVistaPrevia">
+        <img src="" alt="" id="vistaPrevia">
+    </div>
+
+    <div id="contenedordDescripcionIMG">
+        <label for="DescripcionImagen">Descripcion del proceso</label><br>
+        <textarea id="descripcionIMG" rows="5" cols="40" name="DescripcionImagen" style="resize: none;"></textarea>
+    </div>
+
+    <link rel="stylesheet" href="/js/PanelDeControl_diseñador-Industrial/iconoMas/cropper.min.css">
+    <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.13.2.custom/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/iconoMas/cropper.min.js"></script>
+
+    <% } %>
+
+    <div id="areaBotones">
+        <div class="contenedorBoton">
+            <button class="botonEleccion" id="cancelar">Cancelar</button>
+        </div>
+        <div class="contenedorBoton">
+            <% if(tipoDeSituacion !== 'seleccionarTipoDeBusqueda'){ %>
+                <button class="botonEleccion" id="guardar">Guardar</button>
+            <% } %>
+        </div>
+        <p id="espacioError"></p>
+    </div>
+</div>

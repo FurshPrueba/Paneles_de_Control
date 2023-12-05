@@ -1,0 +1,455 @@
+<div class="procedimientos areaEscroleableY">
+  <% 
+    var LineaDeProcesos = codigoLectura[0].codigoLectura.match(/\[[^\]]+\]/g);    
+    // Dividir por cada línea de proceso individual
+
+    LineaDeProcesos.forEach((lineaProcesos) => {
+
+      var contenidoCodigoLectura = lineaProcesos.replace(/\[|\]/g, '');
+
+      // Dividir por cada PROCESO (o subproceso por igual, todos se leen igual)
+      const coincidenciasProcesosCodigoLectura = contenidoCodigoLectura.split(';');      
+            
+      var estadoProcesoAnterior;
+      %>
+      
+      <% coincidenciasProcesosCodigoLectura.forEach((proceso, indice) => { <!--En este momento se itera para crear todos los procesos de que se sequiran en la linea de produccion-->
+        if(proceso !== ''){ 
+          var IdProceso = proceso.split(':')[1].trim().split('(')[0].trim(); //Este es el Id del proceso que se esta iterando (actual)
+          var numeroIdProceso = IdProceso;
+          IdProceso = `proceso_${IdProceso}`
+          //Elegir el Id de el proceso, depender de el tipo de proceso que sera
+          
+          var tipoConector = proceso.replace(/\([^)]*\)/, '').split(':')[0].trim();
+
+          //Si es un procesoEliminado
+          if(tipoConector == 'B-NR' || tipoConector == 'B-A-NR'){
+            //Modificar identificadores
+            var idProcesoEliminado = `B-${IdProceso}`;
+            IdProceso = idProcesoEliminado;
+          }
+          %>
+            <div class="proceso <%= (parseInt(numeroIdProceso) + 1) % 2 === 0 ? 'par' : 'inpar' %>" id="<%= IdProceso %>">
+              <h2 class="numerador"><%= numeroIdProceso %></h2>
+              <div class="iconoSuma"><h2>+</h2></div>
+              <div class="iconoAnular"><img src="/css/img/iconoReemplazar.jpg"></img></div>
+              <div class="iconoBorrar"><img src="/css/img/iconoBorrar.png"></img></div>
+            </div>
+            <% // Desde ACA empieza el procezamiento de cada uno de los factores de cada proceso, incliyendo en donde van %>
+          
+            <script>
+              // Acceder a los marcadores de posición generados por EJS y aplicar dinámicamente los estilos.
+              var proceso = '<%= proceso %>';
+              var areas = proceso.match(/\(([^)]+)\)/)[1].split(',');
+
+              //SI  el primer termino (que define de donde probiene es igual a B0 (Significa exportacion de material) entonces que haga esto, y si no lo demas)
+              if(areas[0] === "B0"){
+                var procesoId = "proceso_<%= numeroIdProceso %>";
+                var areaB = document.querySelector(`#${areas[1].trim()}`);
+
+                var procesoElemennto = document.querySelector(`#${procesoId}`);
+
+                var x2 = areaB.offsetLeft + areaB.offsetWidth / 2;
+
+                var width = areaB.offsetWidth / 2;
+                var tipoConector = proceso.replace(/\([^)]*\)/, '').split(':')[0].trim(); //por ejemplo realizado (R) y no realizado (NR)
+
+                var conector = document.createElement("div");
+                conector.classList.add("conectorPrimero", 'R');
+                conector.style.width = (width - 40) + "px";
+                conector.style.height = 20 + "px";
+                conector.style.left = 50 + "px";
+
+                var parteDeAribaConectorPrimeriso = document.createElement('div');
+                parteDeAribaConectorPrimeriso.classList.add("conectorPrimero", 'R', 'avance');
+                parteDeAribaConectorPrimeriso.style.width = 20 + "px";
+                parteDeAribaConectorPrimeriso.style.height = 40 + "px";
+                parteDeAribaConectorPrimeriso.style.left = 50 + "px";
+                parteDeAribaConectorPrimeriso.style.top = 0 + "px";
+
+                //Agregar la direccionalidad (como es el primero SIEMPRE sera un avance)
+
+                var punto = document.createElement('div');
+                punto.classList.add('punta');
+        
+                //Agregar todos los elementos al proceso correspondiente
+                procesoElemennto.appendChild(parteDeAribaConectorPrimeriso);
+                procesoElemennto.appendChild(conector);
+                conector.appendChild(punto);
+
+                //Eliminar todos los iconos, ya que, el primer proceso (la inportacion) no debe de ser modificada en ningun sentido
+                
+                procesoElemennto.querySelector('.iconoSuma').remove();
+                procesoElemennto.querySelector('.iconoAnular').remove();
+                procesoElemennto.querySelector('.iconoBorrar').remove();
+              }else{
+                /*
+                  *Es necesario iniciar sabiendo de que tipo es el proceso, para itentificar que tipo de Id necesita
+                */
+                //Anunciar de antemano el tipo de Conector ya que se nacesita para saber si es eliminado
+                var tipoConector = proceso.replace(/\([^)]*\)/, '').split(':')[0].trim();
+
+                if(tipoConector == 'B-NR' || tipoConector == 'B-A-NR'){
+                  var procesoId = "#B-proceso_<%= numeroIdProceso %>";
+                }else{
+                  var procesoId = "#proceso_<%= numeroIdProceso %>";
+                }
+                function normalizeSelector(selector) {
+                  // Reemplaza el punto en caso de que lo tenga
+                  return selector.replace(/\./g, '\\.');
+                }                
+                
+                
+                var selectorId = normalizeSelector(procesoId);
+                var procesoElemennto = document.querySelector(`${selectorId.trim()}`);
+                                   //Estos son los iconos de los procesos == 
+                var iconoSumaActual = procesoElemennto.querySelector('.iconoSuma');
+                var iconoAnularActual = procesoElemennto.querySelector('.iconoAnular');
+                var iconoBorrarActual = procesoElemennto.querySelector('.iconoBorrar'); 
+                
+                //Estas son las areas a que reprecentan el movimiento (a donde va el producto)
+                var areaA = document.querySelector(`#${areas[0].trim()}`);
+
+                var areaB = document.querySelector(`#${areas[1].trim()}`);
+                /**
+                 * Es Importanta verificar si el proceso esta anulado, esto se hace para que no interfiera con los
+                 * procesos de creacion de conectores, numeradores y sintaxis
+                */
+
+                var x1 = areaA.offsetLeft + areaA.offsetWidth / 2;
+                var x2 = areaB.offsetLeft + areaB.offsetWidth / 2;
+
+                var x = Math.min(x1, x2);
+                var width = Math.abs(x1 - x2);
+
+                var conector = document.createElement("div");
+                conector.classList.add("conector", `${tipoConector}`);
+                conector.style.width = width + "px";
+                conector.style.height = 20 + "px";
+                conector.style.left = x + "px";
+
+                var cadenaAreas = `${areas[0]},${areas[1]}`
+                var direccionalidad = cadenaAreas.split(',');
+
+                //AREA PRIMIGENEA
+                var area1 = direccionalidad[0].trim().split('');
+
+                //AREA a llevar
+                var area2 = direccionalidad[1].trim().split('');
+
+                //FUNCION PARA DECIDIR LA DIRECCIONALIDAD DE UN PROCESO (Se emplea en los anulados)
+
+                function establecerDireccionalidadConector(conector, direccionalidadOAreas, area1, area2){
+                  if(area1[0] == 'B' && area1[1] <= area2[1]){
+                    conector.innerHTML = '<div class=punta></div>';
+                    conector.classList.add('avance',`${direccionalidadOAreas[0].trim()}`, `${direccionalidadOAreas[1].trim()}`); //El conector es un avance
+                  }else if(area1[0] == 'A' && area1[1] < area2[1]){
+                    conector.innerHTML = '<div class=punta></div>';
+                    conector.classList.add('avance',  `${direccionalidadOAreas[0].trim()}`, `${direccionalidadOAreas[1].trim()}`);//El conector es un avance
+                  }else{
+                    conector.innerHTML = '<div class=punta></div>';
+                    conector.classList.add('retroceso', `${direccionalidadOAreas[0].trim()}`, `${direccionalidadOAreas[1].trim()}`);//El conector es un retroceso
+                  }
+                }
+
+                establecerDireccionalidadConector(conector, areas, area1, area2);
+
+                procesoElemennto.prepend(conector); ///Poner el conector en su lugar (en el proceso iterado actual)
+                
+                //Saber si el proceso se el ultimo (para dejar el icono de agregar y el de eliminar)
+                
+                var NumeroCoincidenciasProcesosCodigoLectura = '<%= coincidenciasProcesosCodigoLectura %>'.match(/(A-)?NR:\d+(\.\d+)?\([^)]*\)(\{NR:\d+>\d+\([^,]+,[^)]+\)\})?/g).length;
+                
+                //FUNCION PARA POCICIONAR LOS ICONOS O BOTONES
+
+                function pocicionamientoIconos(procesoActual,tipoConectorIconos,x1, x2, iconoAgregar, iconoAnular, iconoBorrar){
+                    //Agregar el signo de mas debajo de el punto de referencia de direccionalidad 
+                    if(tipoConectorIconos == 'NR' || tipoConectorIconos !== 'A-NR'){
+    
+                      //Pocicionamiento del icono anular segun su direccionalidad
+                      if(procesoActual.querySelector('.conector').classList.contains('avance')){
+                        iconoAnular.style.left = (x2 + 20) + 'px';
+                        iconoBorrar.style.left = (x1 - 20) + 'px';
+                        iconoAgregar.style.left = (x2) + 'px';
+                        
+                      }else{
+                        iconoAnular.style.left = (x1 + 20) + 'px';
+                        iconoBorrar.style.left = (x2 - 20) + 'px';
+                        iconoAgregar.style.left = (x2) + 'px';
+                      }
+                    }else{
+                      iconoBorrar.remove();
+                      iconoAnular.remove();
+                      iconoAgregar.remove();
+                    }
+                }
+
+                //Organizar elementos (borones de borrar, agregar y reemplazar)
+
+                pocicionamientoIconos(procesoElemennto,tipoConector,x1, x2, iconoSumaActual, iconoAnularActual, iconoBorrarActual);
+                
+
+                
+                //* EL PROCESO ES UN ELIMINADO ==> *//
+
+                //Establecer opciones si es $$ ELIMINADO $$
+
+                //Id completa del proceso eliminado
+
+                var idEliminado;
+
+                if(tipoConector == 'B-NR' || tipoConector == 'B-A-NR'){
+                  //Modificar identificadores
+                  procesoElemennto.classList.add('procedimientoBorrado', 'borrado', `B-proceso_<%= numeroIdProceso %>`); //Poner clases
+
+                  //Encontara los procesos eliminados con el mismo indice
+                  var selectorClaseProcesoeliminado = document.querySelectorAll(`.B-proceso_<%= numeroIdProceso %>`); 
+                  
+                  if(selectorClaseProcesoeliminado == null){ //Si hay  procesos eliminados con el mismo indice..
+                    var idProcesoEliminado = `B-1-proceso_<%= numeroIdProceso %>`;
+                    procesoElemennto.id = idProcesoEliminado; //Le agrega el ID completo
+                  }else{ //Si no hay  procesos eliminados con el mismo indice..
+                    var idProcesoEliminado = `B-${selectorClaseProcesoeliminado.length}-proceso_<%= numeroIdProceso %>`;
+                    procesoElemennto.id = idProcesoEliminado; //Le agrega el ID completo
+                  }
+                  idEliminado = idProcesoEliminado; //Se establece el Id de dicho  proceso eliminado
+
+                  procesoId = '#' + idProcesoEliminado;
+                  selectorId = normalizeSelector(procesoId);
+                  procesoElemennto = document.querySelector(`${selectorId.trim()}`);
+                                    //Borrar los iconos
+                  iconoSumaActual.remove();
+                  iconoAnularActual.remove();
+                  iconoBorrarActual.remove();
+                  procesoElemennto.querySelector('.numerador').remove();
+                  
+                  procesoElemennto.prepend(conector); ///Poner el conector en su lugar (en el proceso eliminado)
+                }
+
+                
+                //* EL PROCESO ES UN ANULADO ==> *//
+
+                //Establecer opciones si es $$ ANULADO $$
+                
+                if(tipoConector == 'A-NR'|| tipoConector == 'B-A-NR' ){
+                    // Función para escapar caracteres especiales en una cadena
+                  function escapeRegExp(string) {
+                    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                  }
+                  
+                  const reemplazo = document.createElement('div'); //este sera el bloqueen donde se dejaran las correccines o anulaciones (y sus decendientes en caso de subproceso)
+                  /*
+                  Antes de empezar, hay que saber si se esta anulando un macropoceso o un subproceso, para eso se empleara logica parecida a subproceso
+                  
+                  (vease abajo para ver el comportamiento de los subprocesos ante esta solicitud, linea == )
+                  */
+                 var partesId = procesoId.split('_');
+                 if(tipoConector == 'B-A-NR'){
+                  var macroPorceso = document.querySelector(escapeRegExp(`#${idEliminado}`)); //Este es el proceso padre del que sera derivado por el proceso actual
+                 }else{
+                  var macroPorceso = document.querySelector(escapeRegExp(`#proceso_${partesId[1]}`)); //Este es el proceso padre del que sera derivado por el proceso actual
+                 }
+                 //Agregar identificadores, Ids y Clases
+                 reemplazo.id = macroPorceso.id;
+                 reemplazo.classList.add('reemplazo', 'proceso', procesoElemennto.classList[1]);//Agregar clases para ofrecer efectos visual
+                  
+                        //GENERAR EL CODIGO DE REEMPLAZO ==>
+                  
+                  //Esta es la exprecion regular usada en el contenido de la linea de produccion
+                  var exprecionRegularCodigoreemplaso = new RegExp(escapeRegExp(proceso) , 'g');
+                  /*En este momento se busca la exprecion regular para procesos */
+                  
+                  //Exprecion regular para encontrar el proceso anulado junto a su reemplazo
+                  var contenidoCodigoLectura = `<%= contenidoCodigoLectura %>`;
+                  var procesoAnulado = contenidoCodigoLectura.match(exprecionRegularCodigoreemplaso); /* Esta es la parte del codigo lectura en la que esta el reemplaso (junto al padre)*/
+  
+                  //Parte del codigo que da especificaciones del reemplaso del proceso anulado
+                  var codigoReemplaso = procesoAnulado[0].match(/{([^{}]+)}/g);
+                  
+                  //FUNCION
+                              /* Se crea un nuevo proceso a partir de el codigoReemplaso el conector y OPCIONES */
+
+                  function crearProcesoAnulado(codigoEjecucion, anuladoOReemplaso, procesoAnulado){
+                                        //Estas son las areas  que describen la direccionalidad de el proceso que reemplazara al anulado descritas
+                    var areasReemplaso = codigoEjecucion.match(/\(([^)]+)\)/)[1].replace(/\{\w+:\d+>\d+\(/, '').split(',');
+
+                    //AREAS QUE REEMPLASARAN A EL ANTERIOR PROCESO (direccionalidad)
+                    var areaA = document.querySelector(`#${areasReemplaso[0].trim()}`); //Area de inicio
+                    var areaB = document.querySelector(`#${areasReemplaso[1].trim()}`); //Area de Final
+                    //UBICACIONES (En el grado horisontal o left)
+                    var x1 = areaA.offsetLeft + areaA.offsetWidth / 2; //Ubicacion en left inicio
+                    var x2 = areaB.offsetLeft + areaB.offsetWidth / 2; //Ubicacion en left final
+
+                    var x = Math.min(x1, x2); //Aca empieza el conector, en el menor de las ubicaciones (inicio o final)
+                    var width = Math.abs(x1 - x2); //Ancho que debe tener el conector
+                    var tipoConector = codigoEjecucion.split(':')[0].replace('{', '').trim(); //El tipo de conector que es (realizado o no realizado *R o *NR)
+
+                    //Generar el conector que reemplaza al proceso anteriro ( ;) )
+                    //CONECTOR REEMPLASO /*-----Conector-----*/
+                    var conector = document.createElement("div");
+                    conector.classList.add("conector", `${tipoConector}`);
+                    conector.style.width = width + "px";
+                    conector.style.height = 20 + "px";
+                    
+                    var direccionalidad = [areasReemplaso[0], areasReemplaso[1]];
+
+                      //AREA PRIMIGENEA
+                    var area1 = direccionalidad[0].trim().split('');
+
+                      //AREA a llevar
+                    var area2 = direccionalidad[1].trim().split('');
+
+                    establecerDireccionalidadConector(conector, direccionalidad, area1, area2);//Se establece la direccionalidad del conector
+
+                      //Como ultimo y despues de agregar todas las clases necesarias, se agregara una clase en comun con los conectores padres
+                    conector.classList.add('conector');
+                    
+                    procesoAnulado.append(conector); //Se agrega el conector al proceso que reemplasa el anulado
+
+                          ///CREAR ICONOS (OPCIONES DE LA LINEA DE PRODUCCION)
+                    function CrearOpcionIconos(procesoAAgregar, contenidoIcono, claseIcono){
+                          //CREAR ICONO /*-----CREAR ICONO-----*/
+                      var icono = document.createElement('div');
+                      icono.classList.add(`${claseIcono}`);
+                      icono.innerHTML = `${contenidoIcono}`;
+                    
+                      procesoAAgregar.appendChild(icono);
+                      
+                      return icono;
+                    }
+                    
+                    
+                    //ICONO Agregar /*-----ICONO Agregar-----*/
+                    var iconoAgregar = CrearOpcionIconos(procesoAnulado, '<h2>+</h2>', 'iconoSuma');
+
+                    //ICONO ANULAR REEMPLASO /*-----ICONO ANULAR-----*/
+                    var iconoReemplazar = CrearOpcionIconos(procesoAnulado, '<img src="/css/img/iconoReemplazar.jpg"></img>', 'iconoAnular');
+
+                    //ICONO BORRAR /*-----ICONO BORRAR-----*/
+                    var iconoBorrar = CrearOpcionIconos(procesoAnulado, '<img src="/css/img/iconoBorrar.png"></img>', 'iconoBorrar');
+      
+                    //Pocicionar los iconos (los botones de agregar, anular y borrar un proceso)
+
+                    pocicionamientoIconos(procesoAnulado, tipoConector,x1, x2, iconoAgregar, iconoReemplazar, iconoBorrar);
+
+                        //Configuraciones visuales (insertar y extrar elemento html)
+                    //Proceso Anulado
+                    macroPorceso.style.height = (macroPorceso.offsetHeight + 60) + 'px';
+                    macroPorceso.classList.add('anulado');
+                    //Conector
+                    conector.style.left = x +'px';
+
+                    if(tipoConector == 'B-A-NR'){
+                      //Borrar los iconos
+                      iconoAgregar.remove();
+                      iconoReemplazar.remove();
+                      iconoBorrar.remove();
+
+                      //Modificar identificadores
+                      procesoElemennto.classList.add('procedimientoBorrado', 'borrado');
+                    }
+                    if(anuladoOReemplaso == 'Anulado'){
+                      //Borrar todos los iconos (los anulados NO los deben tener)
+                      iconoAgregar.remove();
+                      iconoReemplazar.remove();
+                      iconoBorrar.remove();
+
+                      //Agregar clases (y quitarlas)
+                      procesoAnulado.classList.add('anulado');
+                      procesoAnulado.classList.add('procedimientoAnulado');
+                      procesoAnulado.classList.remove('reemplazo');
+                      conector.classList.remove('conector');
+                      conector.classList.add('subConector');
+                      macroPorceso.append(procesoAnulado);
+
+                    }else{
+                      var IdProceso = codigoEjecucion.split(':')[1].trim().split('(')[0].trim(); //Este es el Id del proceso que se esta iterando (actual)
+                      procesoAnulado.id = `proceso_${IdProceso}`;
+                      procesoElemennto.append(procesoAnulado); //Se agrega el reemplazo abajo del proceso original
+                    }
+                  }
+
+                          //Crear Historial De Los Anulados
+                  //Crear los procesos que fueron de historial de los anulados del proceso en cuestion
+                  var historialProcesoAnulado = procesoAnulado[0].match(/\(([^()]+)\)/g);
+                  
+                  historialProcesoAnulado.forEach((reemplasoAnulado, indiceReemplaso)=>{
+                    if((indiceReemplaso + 1) < historialProcesoAnulado.length && (indiceReemplaso + 1) !== 1){
+                      var procesoAnulado = document.createElement('div');
+                      crearProcesoAnulado(reemplasoAnulado, 'Anulado', procesoAnulado); //Crear los anteriroes anulados
+                    }
+                  });
+
+                          //Crear El Reemplazo
+                  crearProcesoAnulado(codigoReemplaso[0], 'reemplazo', reemplazo); //Crear el reemplaso (aquel que si se va a realizar)
+                  
+                  /*
+                  if(tipoConector == 'B-NR' || tipoConector == 'B-A-NR'){
+                    //Modificar identificadores
+                    var partesId = procesoElemennto.id.split('_');
+                    var listaProcesosMismoIndice = document.querySelectorAll(`${selectorId.trim()}`);
+                    if(listaProcesosMismoIndice.length == 2){
+                      procesoElemennto = listaProcesosMismoIndice[1];
+                    }
+                    procesoElemennto.classList.add('procedimientoBorrado', 'borrado', `B-${procesoElemennto.id}`);
+                    var selectorClaseProcesoeliminado = document.querySelectorAll(`.B-${procesoElemennto.id}`);
+                    if(selectorClaseProcesoeliminado == null){
+                      var idProcesoEliminado = `B-1-${procesoElemennto.id}`;
+                      procesoElemennto.id = idProcesoEliminado;
+                    }else{
+                      var idProcesoEliminado = `B-${selectorClaseProcesoeliminado.length + 1}-${procesoElemennto.id}`;
+                      procesoElemennto.id = idProcesoEliminado;
+                    }
+                    procesoId = '#' + idProcesoEliminado;
+                    selectorId = normalizeSelector(procesoId);
+                    procesoElemennto = document.querySelector(`${selectorId.trim()}`);
+                                      //Borrar los iconos
+                    iconoSumaActual.remove();
+                    iconoAnularActual.remove();
+                    iconoBorrarActual.remove();
+                    procesoElemennto.querySelector('.numerador').remove();
+                    
+                    procesoElemennto.prepend(conector); ///Poner el conector en su lugar (en el proceso eliminado)
+                  }
+                 */
+                }
+
+              }
+            </script>
+        <% } // Cierre del if
+      }); // Cierre del forEach
+    }); // Cierre del forEach
+  %>
+
+  <!--Percatarce de cual es el primer proceso no realizado (el actual)-->
+
+  <script>
+    // ANALIZAR TODOS LOS CONECTORES PARA VER CUAL ES EL ACTUAL
+    var elementosConectorNR = document.querySelectorAll('.conector.NR');
+
+    if (elementosConectorNR.length > 0) {
+        var primerElementoNR = elementosConectorNR[0];
+
+        // Selecciona el primer elemento con la clase "NR" y realiza acciones sobre él
+        primerElementoNR.classList.add('actual');
+
+        var lugarAnimacionCarga = document.createElement('div');
+        lugarAnimacionCarga.innerHTML = '<div class="carga"></div>';
+
+        primerElementoNR.insertBefore(lugarAnimacionCarga, primerElementoNR.firstChild);
+
+        // Quitarle las opciones que no corresponden con el actual (la de eliminar y la de reemplazar)
+        var padrePrimerElementoNR = primerElementoNR.parentNode;
+        var iconosAnular = padrePrimerElementoNR.querySelectorAll('.iconoAnular');
+        var iconosBorrar = padrePrimerElementoNR.querySelectorAll('.iconoBorrar');
+
+        iconosAnular.forEach(function (icono) {
+            icono.remove();
+        });
+
+        iconosBorrar.forEach(function (icono) {
+            icono.remove();
+        });
+    }
+</script>
+</div>

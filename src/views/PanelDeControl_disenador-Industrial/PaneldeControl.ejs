@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linea de produccion</title>
+    
+    <!--Css--->
+    <link rel="stylesheet" href="/css/PanelDeControl_disenador-Industrial/opcionesDocumento.css">
+    <link rel="stylesheet" href="/css/PanelDeControl_disenador-Industrial/opcionesAreas.css">    
+    <link rel="stylesheet" href="/css/PanelDeControl_disenador-Industrial/areas.css">
+    <link rel="stylesheet" href="/css/PanelDeControl_disenador-Industrial/ventanaEmergenteModal.css">
+     <!--Eventos hover de los iconos seleccionables-->
+     <link rel="stylesheet" href="/css/PanelDeControl_disenador-Industrial/eventoHoverIconos.css">
+
+     
+     <!--Scripts-->
+     
+     <!--jquery-->
+     <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
+     <script type="text/javascript" src="/js/jquery-ui-1.13.2.custom/jquery-ui.min.js"></script>
+     <link rel="stylesheet" href="/js/jquery-ui-1.13.2.custom/jquery-ui.min.css">
+     <link rel="stylesheet" href="/js/jquery-ui-1.13.2.custom/jquery-ui.structure.min.css">
+     <link rel="stylesheet" href="/js/jquery-ui-1.13.2.custom/jquery-ui.theme.min.css">   
+     
+     <!--Agregar una nueva imagen-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/iconomas/ventModalIconoMas.js"></script>
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/configurarVentanaEmergente.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="img-src 'self' blob: data:">
+</head>
+<body>
+    <div id="titulo">
+        <h1>Panel de control Diseñador Industrial</h1>
+    </div>
+
+    <div id="listaAreas">
+        <div class="areaEscroleableX">
+            <ul id="contenedorAreas">
+                <div class="Areas areaEscroleableY">                
+                    %>
+                    <%- include('opcionesImagenes.ejs', {
+                        area: area,
+                        imagenesAreas: imagenesAreas,
+                    }) %>
+                </div>
+            </ul>
+
+        </div> 
+
+        <div id="ventanaConfirmacion">
+            <div id="contenidoVentanaConfirmacion"></div>
+        </div>
+    </div>
+    
+</body>
+</html>

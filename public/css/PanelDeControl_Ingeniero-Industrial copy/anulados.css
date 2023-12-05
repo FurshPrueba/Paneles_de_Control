@@ -1,0 +1,31 @@
+.procedimientoAnulado{
+    margin-left: -26px;
+    background-color: rgb(116, 116, 116);
+    box-shadow: 0 0 20px rgba(194, 194, 194, 0.678);
+    width: 100%;
+    height:60px;
+    left: 20px;
+    position: relative;
+}.anulado{
+    box-shadow: 0 0 20px rgba(194, 194, 194, 0.978);
+    background-color: #8a8a8a !important;
+    background-image: linear-gradient(45deg, transparent 25%, rgba(139, 139, 139, 0.5) 25%, rgba(110, 110, 110, 0.5) 50%, transparent 50%, transparent 75%, rgba(119, 119, 119, 0.5) 75%, rgba(110, 110, 110, 0.5) 100%);
+    background-size: 20px 20px; /* Ajusta el tamaño del tachado según tus preferencias */
+    background-repeat: repeat;
+    background-position: 0 0;
+}.reemplazo{
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); /* Una columna por elemento */
+    grid-gap: 10px;
+    align-content: end; /* Alinea al final del contenedor */
+    position: relative;
+    height: 60px;
+    margin-left: 20px;
+    padding-left: -20px;
+    overflow: visible; /* Permitir que el contenido desborde el contenedor */
+    background-color: rgb(116, 116, 116);
+    box-shadow: 0 0 20px rgba(194, 194, 194, 0.678);
+}.reemplazo div{
+    margin-left: -24px;
+}

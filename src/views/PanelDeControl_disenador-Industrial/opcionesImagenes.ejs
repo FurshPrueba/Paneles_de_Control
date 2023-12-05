@@ -1,0 +1,12 @@
+<% area.forEach((elemento, indice) => { 
+  var esUltimaArea = (indice === area.length - 1); // Corrección de la comparación
+
+  %>
+  <%- include('unidadArea.ejs', {
+      area: {
+          id: elemento.areaID
+      },
+      imagenesAreas: imagenesAreas,
+      esUltimaArea: esUltimaArea // Corrección en la asignación de la propiedad
+  }) %>
+<% }) %>

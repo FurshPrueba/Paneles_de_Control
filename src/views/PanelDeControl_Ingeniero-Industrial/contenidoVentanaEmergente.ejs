@@ -1,0 +1,39 @@
+
+<%if(tipoDeSituacion == 'agregar'){ %>
+    <h2 class="anunciado ventanaEmergente">¿Seguro que quieres agregar un nuevo proceso a este procedimiento?</h2>
+
+    <p>Direccionalidad: <%= direccionalidadConectorHijoInicial %> a <%= direccionalidadConectorHijoFinal %></p>
+<% } else if(tipoDeSituacion == 'borrar'){ %>
+    <h2 class="anunciado ventanaEmergente">¿Seguro que quieres Borrar el proceso?</h2>
+    <h4>El proceso se borrara de manera permanente</h4>
+<% }else{ %>
+    <h2 class="anunciado ventanaEmergente">¿Seguro que quieres reemplazar el conector seleccionado?</h2>
+    <h4>Reemplazar conector: <%= direccionalidadConectorPadre %> ;Por: <%= direccionalidadConectorHijoInicial %> a <%= direccionalidadConectorHijoFinal %></h4>
+<% } %>
+    
+    <div id="areaBotones">
+        <div class="contenedorBoton">
+            <button class="botonEleccion" id="cancelar">Cancelar</button>
+        </div>
+        <div class="contenedorBoton">
+            <button class="botonEleccion" id="aceptar">Aceptar</button>
+        </div>
+    </div>
+
+
+    <%if(tipoDeSituacion == 'agregar'){ %>
+        <% if(tipoRespuesta == 'repetido') { %>
+            <h5>No se puede agregar un procedimiento igual al siquiente en la linea</h5>
+        <% } %>
+        <% if(tipoRespuesta == 'Error') { %>
+            <h5>Ocurrio un error, intentarlo mas tarde</h5>
+        <% } %>
+    <% }else{ %>
+        <% if(tipoRespuesta == 'repetido') { %>
+            <h5>No se puede anular un procedimiento igual al siquiente en la linea, se recomienda eliminar el proceso actual</h5>
+        <% } %>
+        <% if(tipoRespuesta == 'Error') { %>
+            <h5>Ocurrio un error, intentarlo mas tarde</h5>
+        <% } %>
+    <% } %>
+</div>

@@ -1,0 +1,90 @@
+#ventanaConfirmacion{
+    transition: 0.2s;
+}.botonEleccion{
+    background-color: black;
+    border: black;
+    color: aliceblue;
+    border-radius: 10px;
+    width: 150px;
+    height: 30px;
+}.contenedorBoton{
+    padding: 10px;
+}#areaBotones{
+    position: relative;
+    top: -180px;
+    display: inline-flex;
+}.botonEleccion#aceptar:hover{
+    color: black;
+    background-color: rgb(190, 251, 255);
+    box-shadow: 0 0 10px rgba(79, 205, 255, 0.726);
+    transition: 0.4s;
+}.botonEleccion#guardar:hover{
+    color: black;
+    background-color: rgb(190, 251, 255);
+    box-shadow: 0 0 10px rgba(79, 205, 255, 0.726);
+    transition: 0.4s;
+}.botonEleccion#cancelar:hover{
+    color: black;
+    background-color: rgb(255, 249, 196);
+    box-shadow: 0 0 10px rgba(255, 182, 87, 0.726);
+    transition: 0.4s;
+}#espacioError{
+    position: absolute;
+    top: 30px;
+    color: red;
+    box-shadow: 0 0 5px rgba(212, 38, 38, 0.76);
+}.anunciado.ventanaEmergente{
+    color: rgb(202, 202, 202);
+}h5{
+    color: red;
+    box-shadow: 0 0 5px rgba(255, 80, 57, 0.726);
+}#contenedorImagenARecortar{
+    z-index: 1000;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    max-height: 400px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(235, 233, 233, 0.76);
+}#ImagenARecortar{
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    max-height: 400px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(235, 233, 233, 0.76);
+}#vistaPrevia{
+    margin-top: 10px;
+    margin-left: 300px;
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(235, 233, 233, 0.76);
+}#contenedordDescripcionIMG{
+    position: relative;
+    top:  -205px;
+}#descripcionIMG{
+    overflow-y: scroll;
+    width: 280px;
+    height: 177px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(235, 233, 233, 0.76);
+}#contenedorOpcionesDeBusqueda{
+    display: inline-block;
+    width: 510px;
+}.ImagenesDeSubida{
+    transition: 0.4s;
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(241, 172, 80);
+    box-shadow: 0 0 5px rgba(235, 235, 233, 0.76);
+    border-radius: 20px;
+    width: 250px;
+    height: 150px;
+}.ImagenesDeSubida:hover{
+    transition: 0.4s;
+    background-color: rgb(241, 104, 80);
+    box-shadow: 0 0 5  rgba(201, 82, 52, 0.815);
+}

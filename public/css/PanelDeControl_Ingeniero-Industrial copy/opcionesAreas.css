@@ -1,0 +1,52 @@
+/*Este es el contenedor de toda la linea de produccion*/
+#listaAreas{
+    display: inline-block;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    background-color: rgb(116, 116, 116);
+    box-shadow: 0 0 50px rgba(27, 27, 27, 0.8); /* Ajusta los valores según tus preferencias */
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    width: auto;
+    max-width: 95%;
+    height: auto;
+    max-height: 700px;
+}
+
+.areaEscroleableX{
+    margin-bottom: 4px;
+    /*ESCROL HORISONTAL*/
+    
+    padding: 20px;
+    scrollbar-color: rgb(136, 221, 255);
+    overflow: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: y mandatory; /* Establece el desplazamiento horizontal obligatorio */
+}#contenidoVentanaConfirmacion{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+/*ventana de confirmacion*/
+.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front{
+    position: absolute;
+    z-index: 1000;
+    width: 420px;
+    height: 280px;
+    background: linear-gradient(
+        45deg,
+        rgb(0, 0, 0),   /* Escala de grises más clara */
+        rgb(92, 92, 92), /* Escala de grises intermedia */
+        rgb(139, 139, 139)   /* Escala de grises más clara */
+        );
+    border-radius: 10px;
+}
+/*boton de salir*/
+.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front .ui-dialog-titlebar.ui-corner-all.ui-widget-header.ui-helper-clearfix{
+    display: none;
+}
+    
