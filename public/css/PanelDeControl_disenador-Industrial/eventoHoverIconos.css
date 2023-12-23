@@ -2,15 +2,12 @@
 .iconoSuma:hover{
     background-color: rgb(167, 214, 255);
     opacity: 1;
+    display: block;
 }
 
-/*Icono de Reemplazar*/
-.iconoAnular:hover{
-    background-color: rgb(182, 130, 34);
-    opacity: 1;}
-
 /*Icono de Borrar*/
-.iconoBorrar:hover{
-    background-color: rgb(223, 114, 114);
+.contenedorImagen .imagenPaso:hover ~ .iconoBorrar {
+    opacity: 1;
+}.iconoBorrar:hover{
     opacity: 1;
 }

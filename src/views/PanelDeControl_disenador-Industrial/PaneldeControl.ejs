@@ -10,30 +10,41 @@
     <link rel="stylesheet" href="/css/PanelDeControl_disenador-Industrial/opcionesAreas.css">    
     <link rel="stylesheet" href="/css/PanelDeControl_disenador-Industrial/areas.css">
     <link rel="stylesheet" href="/css/PanelDeControl_disenador-Industrial/ventanaEmergenteModal.css">
-     <!--Eventos hover de los iconos seleccionables-->
-     <link rel="stylesheet" href="/css/PanelDeControl_disenador-Industrial/eventoHoverIconos.css">
+    <!--Eventos hover de los iconos seleccionables-->
+    <link rel="stylesheet" href="/css/PanelDeControl_disenador-Industrial/eventoHoverIconos.css">
 
-     
-     <!--Scripts-->
-     
-     <!--jquery-->
-     <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
-     <script type="text/javascript" src="/js/jquery-ui-1.13.2.custom/jquery-ui.min.js"></script>
-     <link rel="stylesheet" href="/js/jquery-ui-1.13.2.custom/jquery-ui.min.css">
-     <link rel="stylesheet" href="/js/jquery-ui-1.13.2.custom/jquery-ui.structure.min.css">
-     <link rel="stylesheet" href="/js/jquery-ui-1.13.2.custom/jquery-ui.theme.min.css">   
-     
-     <!--Agregar una nueva imagen-->
-    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/iconomas/ventModalIconoMas.js"></script>
-    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/configurarVentanaEmergente.js"></script>
+    
+    <!--Scripts-->
+    
+    <!--jquery-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Sortable.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.13.2.custom/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/js/jquery-ui-1.13.2.custom/jquery-ui.min.css">
+    <link rel="stylesheet" href="/js/jquery-ui-1.13.2.custom/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="/js/jquery-ui-1.13.2.custom/jquery-ui.theme.min.css">   
+    
+    <!--Agregar una nueva imagen-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Imagenes/iconoMas/funciones.js"></script>
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Imagenes/iconoMas/ventModalIconoMas.js"></script>
+    <!--borrar una imagen-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Imagenes/iconoBorrar/interaccionIconoBorrar.js"></script>
+    <!--organizar una imagen-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Areas/iconoCambiarNombreArea/interaccionIcono.js"></script>
+
+    <!--Agregar una nueva Area-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Areas/crear_Area/interaccion_CrearArea.js"></script>
+
+    
     <meta http-equiv="Content-Security-Policy" content="img-src 'self' blob: data:">
 </head>
 <body>
     <div id="titulo">
-        <h1>Panel de control Diseñador Industrial</h1>
+        <h1>Diseñador Industrial</h1>
     </div>
 
     <div id="listaAreas">
+        <h2 style="padding: 0px;margin: 0px;margin-bottom: -10px;margin-left: 20px;">Panel de control</h2>
         <div class="areaEscroleableX">
             <ul id="contenedorAreas">
                 <div class="Areas areaEscroleableY">                
@@ -44,7 +55,6 @@
                     }) %>
                 </div>
             </ul>
-
         </div> 
 
         <div id="ventanaConfirmacion">

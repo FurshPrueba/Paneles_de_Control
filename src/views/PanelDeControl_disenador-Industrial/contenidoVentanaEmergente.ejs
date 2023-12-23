@@ -1,47 +1,91 @@
 <div class="contenidoVentanaEmergente">
-    <h1>Imagen Seleccionada</h1>
     <% if(tipoDeSituacion == 'seleccionarTipoDeBusqueda'){ %>
+        <h2>Seleccionar Imagen</h2>
         <div id="contenedorOpcionesDeBusqueda">
-            <div id="contenedorSubirLaImagen">
-                <h3>Sube imagen</h3>
+            <div id="contenedorSubirLaImagen" class="contenedoresDeSubida">
+                <h3 class="medio">Subir</h3>
                 <input id="elementoFile" type="file" name="file" style="display: none;">
                 <img src="/css/img/subirImagen.png" alt="ImagenReprecentativaSubidaImagen" id="subirLaImagen" class="ImagenesDeSubida">
             </div>
-            <div id="contenedorPegarLaImagen">
-                <h3>Pega imagen</h3>
+            <div id="contenedorPegarLaImagen" class="contenedoresDeSubida">
+                <h3 class="medio">Pegar</h3>
                 <input id="pegarLaImagen" class="ImagenesDeSubida" type="text" name="pegarLaImagen" placeholder="Pegar una URL de imagen aquí" style="font-size: 16px;" readonly>
             </div>
         </div>
-    <% }else if(tipoDeSituacion !== 'seleccionarTipoDeBusqueda'){ %>
+    <% }else if(tipoDeSituacion == 'borrar'){ %>
+        <h2 class="anunciado ventanaEmergente">¿Seguro que quieres Borrar la imagen?</h2>
+        <h4>La imagen se borrara de manera permanente</h4>
+    <% }else if(tipoDeSituacion == 'CorteIMG'){ %>
+    <h2>Cortar Imagen</h1>
     <div id="contenedorImagenARecortar">
         <img src="<%= urlBlob %>" alt="ImagenARecortar" id="ImagenARecortar">
     </div>
-
-    <div id="contenedorVistaPrevia">
-        <img src="" alt="" id="vistaPrevia">
-    </div>
-
-    <div id="contenedordDescripcionIMG">
-        <label for="DescripcionImagen">Descripcion del proceso</label><br>
-        <textarea id="descripcionIMG" rows="5" cols="40" name="DescripcionImagen" style="resize: none;"></textarea>
-    </div>
-
+    
+    
     <link rel="stylesheet" href="/js/PanelDeControl_diseñador-Industrial/iconoMas/cropper.min.css">
     <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="/js/jquery-ui-1.13.2.custom/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/iconoMas/cropper.min.js"></script>
+    
+    <% }else if(tipoDeSituacion == 'DescribirYGuardar'){ %>     
+        <h2>Descripcion</h2>
+        <div id="contenedorVistaDescripcion">
+            <div id="contenedordDescripcionIMG">
+                <label for="DescripcionImagen"><h3>Nota</h3></label>
+                <textarea id="descripcionIMG" rows="5" cols="40" name="DescripcionImagen" style="resize: none;"></textarea>
+            </div>
+        <div style="position: relative;left: -250px;" id="contenedorVistaPrevia">
+            <img src="<%= urlBlob %>" alt="" id="vistaPrevia">
+        </div>
+        </div>
+        <div id="contenedordSelectorTiempos">
+            <label for="SelectorTiempos"><h3>Tiempo Estimado</h3></label>
+            <input id="selectorTiempos" rows="5" cols="40" name="SelectorTiempos" style="resize: none;">
+        </div>
 
-    <% } %>
+    
+    <% }else if(tipoDeSituacion == 'crearArea'){ %>     
+        <div id="contenedorNombreArea" style="margin: auto;width: fit-content;">
+            <label for="nombreArea"><h2>Nombre del Area</h2></label>
+            <div style="display: block ruby;background-color: rgb(129, 129, 129);border-radius: 10px;box-shadow: 0 0 5px rgb(56, 56, 56, 0.5);">
+                <input id="nombreArea" name="nombreArea" type="text" maxlength="10" placeholder="Agrega el nombre del area">
+                <p style="width: 30px;"><span id="contador">10</span></p>
+            </div>
+
+            <script>
+              var input = document.getElementById('nombreArea');
+              var contador = document.getElementById('contador');
+          
+              input.addEventListener('input', function() {
+                var longitudTexto = input.value.length;
+                var limiteCaracteres = input.getAttribute('maxlength');
+                var caracteresRestantes = limiteCaracteres - longitudTexto;
+          
+                contador.textContent = caracteresRestantes;
+              });
+            </script>
+        </div>
+    <% } %>     
+
 
     <div id="areaBotones">
         <div class="contenedorBoton">
-            <button class="botonEleccion" id="cancelar">Cancelar</button>
+            <button class="botonEleccion cerrar" id="cancelar">Cancelar</button>
         </div>
         <div class="contenedorBoton">
-            <% if(tipoDeSituacion !== 'seleccionarTipoDeBusqueda'){ %>
+            <% if(tipoDeSituacion == 'CorteIMG'){ %>
+                <button class="botonEleccion" id="aceptar">Aceptar</button>
+                <div id="infoArea" class="<%= area %>" style="display: none;"></div>
+            <% }else if(tipoDeSituacion == 'DescribirYGuardar'){ %>
                 <button class="botonEleccion" id="guardar">Guardar</button>
-            <% } %>
+                <div id="infoArea" class="<%= area %>" style="display: none;"></div>
+            <% }else if(tipoDeSituacion == 'borrar'){ %>
+                <button class="botonEleccion" id="borrar">Borrar</button>
+                <div id="infoArea" class="<%= area %>" style="display: none;"></div>
+            <% }else if(tipoDeSituacion == 'crearArea'){ %>
+                <button class="botonEleccion" id="aceptar">Aceptar</button>
+                <div id="infoArea" class="<%= area %>" style="display: none;"></div>
+            <% } %>        
         </div>
-        <p id="espacioError"></p>
     </div>
 </div>

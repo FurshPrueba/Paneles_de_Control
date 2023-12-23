@@ -1,37 +1,58 @@
-<%
-    const areaIDparseada = area.id.split('');
-    //Si es un area de bodega 
-    if (areaIDparseada[0] == "A") { %>
-        <div class="Area" id="<%= area.id %>">
-            <li class="numerador" id="numerador_<%= area.id %>"><h2><%= area.id %></h2></li>
-            <%
-            var numeroImagenesDeArea = 0;
-            imagenesAreas.forEach((imagen, indice) => { 
-
-                if (imagen.areaID == area.id) {
-                    // Convertir el buffer en una URL de datos
-                    const imagenDataURL = `data:image/jpeg;base64,${imagen.imagenEncriptada.toString('base64')}`;
-                    %>
-                    <div class="contenedorImagen">
-                        <img src="<%= imagenDataURL %>" alt="" class="imagenPaso">
-                        <div type="submit" name="enviarFormularioIconoAgregar" class="iconoSuma" style="opacity: 0; width: 30px;height: 30px; left: 70px;top: 17px;">
-                            <h2 style="position: absolute;left: 10%;top: 10%;">+</h2>
-                        </div>    
-                    </div>
-                <% numeroImagenesDeArea++
-                }
-            }) %>
-            <% //if (numeroImagenesDeArea == 0) { %>
-                <div class="espaciaAgregarImagen">
-                    <div type="submit" name="enviarFormularioIconoAgregar" class="iconoSuma" style="width: 30px;height: 30px; left: 70px;top: 17px;">
-                        <h2 style="position: absolute;left: 10%;top: 10%;">+</h2>
-                    </div>
-                </div>
-            <% //} %>
+<div class="contenedorAreas">
+    <div class="Area" id="<%= area.id %>">
+        <div class="numerador no-sortImage" id="numerador_<%= area.id %>">
+            <div class="contnombre">
+                <h3 class="nombreArea visible"><%= area.nombre %></h3>
+                <input class="inputNumerador" value="<%= area.nombre %>" type="text" maxlength="10" placeholder="<%= area.nombre %>">
+            </div>
+            <img class="iconoEditar visible" src="/css/img/iconoEditar.png">
+                <div class="IconoConfirmacion">
+                <img  src="/css/img/iconoConfirmar_flecha.png">
+            </div>
         </div>
-<% } %>
-<% if (esUltimaArea) { %>
-    <div class="espaciaAgregarArea" id="espaciaAgregarArea">
-        <div class="iconoSumaArea" style="opacity: 1;width: 40px;height: 40px;"><h1>+</h1></div>
+    
+        <%
+        var numeroImagenesDeArea = 0; 
+        var listaDeOrdenDeImagenes;
+    
+        codigos_Imagenes.forEach((codigoAreas, indice) => { 
+            if (codigoAreas.areaID == area.id) {
+                var codigo_Actual_Imagenes = codigoAreas.codigo_ordenImagenes;
+                var LineaDeImagenes = codigo_Actual_Imagenes.match(/\[[^\]]+\]/g);
+        
+                LineaDeImagenes.forEach((lineaImagenes) => {
+                    var contenidoCodigo_Imagenes = lineaImagenes.replace(/\[|\]/g, '');
+                    listaDeOrdenDeImagenes = contenidoCodigo_Imagenes.split(';')
+                })
+            }
+        })
+    
+        
+        listaDeOrdenDeImagenes.forEach((imagenID, indice) => { 
+            imagenesAreas.forEach((imagen, indice) => { 
+                if (imagen.areaID == area.id) {
+                    if(imagenID == imagen.imagenID){
+                        // Convertir el buffer en una URL de datos
+                        const imagenDataURL = `data:image/jpeg;base64,${imagen.imagenEncriptada.toString('base64')}`;
+                        %>
+                        <div id="<%= imagen.imagenID %>" class="contenedorImagen">
+                            <img src="<%= imagenDataURL %>" alt="" class="imagenPaso">
+                            <div class="iconoSuma no-sortImage" style="width: 30px;height: 30px; left: 58px;top: 13px;">
+                                <img src="/css/img/iconoSuma.png"></img>
+                            </div>   
+                            <div class="iconoBorrar no-sortImage"><img src="/css/img/iconoBorrar.png"></img></div>
+                        </div>
+                    <% numeroImagenesDeArea++
+                    }
+                }
+            });
+        }) %>
+        <% //if (numeroImagenesDeArea == 0) { %>
+            <div id="0-<%= area.id %>" class="espaciaAgregarImagen">
+                <div type="submit" name="enviarFormularioIconoAgregar" class="iconoSuma" style="display: block;width: 30px;height: 30px; left: 190px;top: 17px;">
+                    <img src="/css/img/iconoSuma.png"></img>
+                </div>
+            </div>
+        <% //} %>
     </div>
-<% } %>
+</div>

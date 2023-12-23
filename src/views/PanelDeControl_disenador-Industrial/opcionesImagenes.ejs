@@ -1,12 +1,74 @@
-<% area.forEach((elemento, indice) => { 
-  var esUltimaArea = (indice === area.length - 1); // Corrección de la comparación
+<% 
+  var listaDeOrdenDeAreas;
 
-  %>
-  <%- include('unidadArea.ejs', {
-      area: {
-          id: elemento.areaID
-      },
-      imagenesAreas: imagenesAreas,
-      esUltimaArea: esUltimaArea // Corrección en la asignación de la propiedad
+  codigos_Areas.forEach((codigoAreas, indice) => { 
+      if (codigoAreas.areaID == area.id) {
+          var codigo_Actual_Areas = codigoAreas.codigo_Areas;
+          var LineaDeAreas = codigo_Actual_Areas.match(/\[[^\]]+\]/g);
+  
+          LineaDeAreas.forEach((lineaAreas) => {
+              var contenidoCodigo_Areas = lineaAreas.replace(/\[|\]/g, '');
+              listaDeOrdenDeAreas = contenidoCodigo_Areas.split(';')
+          })
+      }
+  })
+
+  
+  listaDeOrdenDeAreas.forEach((areaIDcodigo, indice) => { 
+    if(areaIDcodigo.trim() !== ""){
+      area.forEach((elemento, indice) => { 
+        if(elemento.areaID == areaIDcodigo){
+          var areaIDparseada = elemento.areaID.split('');
+          //Si es un area de bodega 
+      
+          if (areaIDparseada[0] == "A") { %>
+            <%- include('unidadArea.ejs', {
+              area: {
+                  id: elemento.areaID,
+                  nombre: elemento.nombreArea,
+              },
+              imagenesAreas: imagenesAreas,
+              codigos_Imagenes: codigos_Imagenes,
+              codigos_Areas: codigos_Areas
+            }) %>
+          <% }
+        }
+      })
+    }
   }) %>
-<% }) %>
+
+<div class="espaciaAgregarArea iconoSumaArea" id="espaciaAgregarArea" class="no-sort">
+    <img src="/css/img/iconoSuma.png" class="no-sort"></img>
+</div>
+<!--REORGANIZAR Imagenes-->
+<script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Imagenes/reorganizacionDeImagenes/reorganizarImagnes.js"></script>
+<!--REORGANIZAR Areas-->
+<script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Areas/Reorganizar_Areas/reorganizar.js"></script>
+
+
+<script>
+  var areas = document.querySelectorAll(".Area");
+  areas.forEach((area, indice)=>{
+    var imagenesDeArea = area.querySelector(".imagenPaso");
+    var iconoAgregarPorDefecto = area.querySelector(".espaciaAgregarImagen").querySelector(".iconoSuma");
+
+    if(imagenesDeArea !== null){
+      iconoAgregarPorDefecto.classList.add('opacidad-iconoAgregar-obscuro');
+    }else{
+      iconoAgregarPorDefecto.classList.add('opacidad-iconoAgregar-claro');
+    }
+  });
+
+      // Obtener el contenedor padre y el subelemento hijo
+    var contenedorPadre = document.querySelector('.Areas');
+    var subelementoHijo = contenedorPadre.querySelectorAll('.Area');
+
+    var anchoContenedorPadre = contenedorPadre.scrollWidth - 150;
+
+    // Calcular el ancho del contenedor padre incluyendo el ancho del scrollbar
+
+    subelementoHijo.forEach(element => {    
+      // Aplicar el ancho calculado al subelemento hijo
+      element.style.width = anchoContenedorPadre + 'px';
+    });
+</script>

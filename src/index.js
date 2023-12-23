@@ -57,23 +57,37 @@ app.post('/PanelDeControl_Ingeniero-Industrial/agregarProceso', require('./route
             
 
 //para la ruta del panel de control de la linea de produccion
-app.get('/PanelDeControl_Disenador-Industrial', require('./routes/PanelDeControl_Disenador-Industrial/rutaPaneldeControl'));
+app.get('/PanelDeControl_Disenador-Industrial', require('./routes/PanelDeControl_disenador-Industrial/rutaPaneldeControl.js'));
 
 //la ruta para pedirle al servidor el contenido de la interaccion de la pagina emergente al modificar la linea de produccion, tanto para agregar como para anular un [Producto]
-app.post('/PanelDeControl_Disenador-Industrial/contenidoVentana', require('./routes/PanelDeControl_Disenador-Industrial/rutaPaneldeControl'));
+app.post('/PanelDeControl_Disenador-Industrial/contenidoVentana', require('./routes/PanelDeControl_disenador-Industrial/rutaPaneldeControl.js'));
 
+//para la ruta del panel de control de la linea de produccion
+app.post('/PanelDeControl_Disenador-Industrial/dataImagenes', require('./routes/PanelDeControl_disenador-Industrial/rutaPaneldeControl.js'));
+
+//para la ruta del panel de control de la linea de produccion
+app.post('/PanelDeControl_Disenador-Industrial/cambiar_nombreArea', require('./routes/PanelDeControl_disenador-Industrial/rutaPaneldeControl.js'));
+
+
+    //IMAGENES
 //Opciones de agregado de procesos
     //-aceptar
-app.post('/PanelDeControl_disenador-Industrial/agregarImagen', require('./routes/PanelDeControl_Disenador-Industrial/panelControl_AgregarImagen.js'));
+app.post('/PanelDeControl_Disenador-Industrial/agregarImagen', require('./routes/PanelDeControl_disenador-Industrial/imagenes/panelControl_AgregarImagen.js'));
+
 //Opciones de reemplazar de procesos
     //-aceptar
-    app.post('/PanelDeControl_Disenador-Industrial/anularProceso', require('./routes/PanelDeControl_Disenador-Industrial/panelControl_AnularUnProceso.js'));
+    app.post('/PanelDeControl_Disenador-Industrial/reorganizarImagenes', require('./routes/PanelDeControl_disenador-Industrial/imagenes/panelControl_reorganizarImagenes.js'));
 
 
 //Opciones de borrar de procesos
     //-aceptar
-    app.post('/PanelDeControl_Disenador-Industrial/borrarProceso', require('./routes/PanelDeControl_Disenador-Industrial/panelControl_BorrarUnProceso.js'));
+    app.post('/PanelDeControl_Disenador-Industrial/borrarImagen', require('./routes/PanelDeControl_disenador-Industrial/imagenes/panelControl_BorrarUnaImagen.js'));
 
+
+    //AREAS
+//Opciones de agregado de procesos
+    //-aceptar
+    app.post('/PanelDeControl_Disenador-Industrial/agregarArea', require('./routes/PanelDeControl_disenador-Industrial/Areas/panelControl_AgregarArea.js'));
 
 
 

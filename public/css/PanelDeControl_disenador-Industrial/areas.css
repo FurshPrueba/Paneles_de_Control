@@ -27,68 +27,157 @@
     scroll-snap-type: y mandatory; /* Establece el desplazamiento horizontal obligatorio */
 }
 /* PROCESOS DE LA LINEA DE PRODUCCION */
-.Areas{
+.Areas{ /*Areas en comun (el contenedor de todas las areas)*/
     border-radius: 10px;
     height: auto;
     max-height: 270px;
+    overflow-x: scroll;
+}
+/* Estilos para personalizar la apariencia de la barra de desplazamiento en Firefox */
+.Areas {
+    scrollbar-width: thin; /* Establece el ancho de la barra de desplazamiento */
+    scrollbar-color: #ccc transparent; /* Establece el color del thumb (el control deslizante) y del track */
+}
+
+/* Establece el color del thumb (el control deslizante) */
+.Areas::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+}
+
+/* Establece el color del track (fondo de la barra) */
+.Areas::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+/* Oculta las esquinas de la barra de desplazamiento */
+.Areas::-webkit-scrollbar-corner {
+    display: none;
 }.Area{
     box-shadow: 3px 3px 5px rgba(184, 184, 184, 0.8); /* Ajusta la opacidad aquí */
-    display: block;
+    display: flex;
     align-content: center; /* Alinea al final del contenedor */
     position: relative;
     height: 60px;
     padding-left: 6px;
     margin-bottom: 0px;
     overflow: visible; /* Permitir que el contenido desborde el contenedor */
-    padding-left: 100px;
-}.Area .numerador{
+    padding-left: 190px;
+    width: 100%;
+}
+
+/* - Apartado de el numerador (El numerador del area, el que muestra su nombre) - */
+
+.Area .numerador{ /*El numeroador es el elemento que contiene el nombre*/
     padding: 5px;
     position: absolute;
     display: flex;
     align-items: center;
     left: 5px;
     z-index: 1000;
-    height: 30px;
+    height: 24px;
+    width: 148px;
     top: 15px;
     margin-left: 4px;
     margin-right: 4px;
     color: #8a8a8a;
     background-color: rgb(71, 71, 71);
-    border-radius: 10px;
-}.numerador h2{
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.8); /* Ajusta la opacidad aquí */
+    border-radius: 20px;
+    transition: 0.3s;
+}.Area .numerador:hover{
+    background-color: rgb(133, 133, 133);
+    box-shadow: 3px 3px 5px rgba(177, 177, 177, 0.8); /* Ajusta la opacidad aquí */
+}.numerador h3{
+    display: none;
+    opacity: 0;
     color: #fff;
-}.espaciaAgregarArea{
-    box-shadow: 3px 3px 5px rgba(184, 184, 184, 0.8); /* Ajusta la opacidad aquí */
-    display: grid;
-    place-items: center; /* Centrar en ambos ejes (eje X y eje Y) */
-    position: relative;
-    height: 60px;
-    margin-bottom: 0px;
-    overflow: visible; /* Permitir que el contenido desborde el contenedor */
-}.espaciaAgregarArea .iconoSumaArea{
-    padding: 0;
-    width: 40px;
-    height: 40px;
+}.numerador h3.visible{
+    display: block;
     opacity: 1;
-    transition: opacity 0.3s ease-in-out; /* Establece la propiedad, duración y función de temporización de la transición. */
-    position: absolute;
-    top: 12px;
-    left: 30px;
-    transform: translateX(-50%); /* Centra horizontalmente el hijo en relación al centro del padre */
+    color: #fff;
+}.Area .numerador .iconoEditar{
+    display: none;
+    opacity: 0;
+    z-index: 1000;
+    height: 23px;
+    width: 23px;
+    margin-left: auto;
+}.Area .numerador .iconoEditar.visible{
+    display: block;
+    opacity: 0.7;
+}.Area .numerador .IconoConfirmacion{
+    display: none;
+    opacity: 0;
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    border-radius: 999px;
+    box-shadow: 0 0 10px rgba(89, 151, 9, 0.8); /*Ajusta la opacidad aquí */
+    transition: 0.2s;
+}.Area .numerador .IconoConfirmacion img{
+    position: relative;
+    width: 48px;
+    height: 48px;
+    left: -9px;
+    top: -9px;
+}.Area .numerador .IconoConfirmacion.visible{
+    display: block;
+    opacity: 0.7;
+}.Area .numerador .IconoConfirmacion:hover{
+    background-color: white;
+    box-shadow: 0 0 10px rgba(133, 233, 2, 0.8); /*Ajusta la opacidad aquí */
+    border: 10px rgba(133, 233, 2, 0.8);
+    opacity: 1;
+}
+.inputNumerador{
+    position: relative;
+    margin-left: 4px;
+    margin-right: 4px;
+    display: none;
+    opacity: 0;
+    z-index: 2000;
+    height: 25px;
+    width: 95px;
+    border-radius: 2px;
+    border: 0px;
+    border-bottom: 1px solid black;
+    background-color: rgba(71, 71, 71, 0);
+}.inputNumerador.visible{
+    display: block;
+    opacity: 1;
+}.Area .numerador.error{
+    box-shadow: 0 0 10px rgba(233, 75, 2, 0.8); /*Ajusta la opacidad aquí */
+}.Area .numerador.exito{
+    box-shadow: 0 0 10px rgba(2, 233, 106, 0.8); /*Ajusta la opacidad aquí */
+}
+
+
+/* Apartado de el icono de agragar una area (el icoo de suma grande) */
+.espaciaAgregarArea{
+    transition: 0.4s;
     background-color: #3da7b1; /* Ajusta el color de fondo del hijo según tus necesidades */
     box-shadow: 0 0 10px rgba(132, 220, 247, 0.8); /* Ajusta los valores según tus preferencias */
-    color: #fff; /* Ajusta el color del texto según tus necesidades */
+    height:50px;
+    width: 50px;
+    overflow: visible; /* Permitir que el contenido desborde el contenedor */
     border-radius: 999px;
-    z-index: 1000;
-    overflow: visible; /* Ignora el desbordamiento del hijo */
-}.espaciaAgregarArea .iconoSumaArea  h1{
-    position: absolute;
-    top: -38px;
-    left: 3px;
-}.espaciaAgregarArea .iconoSumaArea:hover{
-    box-shadow: 0 0 5px rgba(44, 221, 124, 0.8); /* Ajusta la opacidad aquí */
+    /*CENTRAR*/
+    margin-left: 55px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}.espaciaAgregarArea img{
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta el espacio en blanco */
+}.espaciaAgregarArea:hover{
+    box-shadow: 0 0 15px rgba(44, 195, 221, 0.8); /* Ajusta la opacidad aquí */
     background-color: #2ddbc4; /* Ajusta el color de fondo del hijo según tus necesidades */
-}.ImagenArea{
+}
+
+
+/* - Apartado para las imagenesy demas especificaciones - */
+.ImagenArea{
     position: absolute;
     width: 60px;
     height: 40px;
@@ -114,12 +203,6 @@
 
 /*Cunado los procesos no tenan concorf=dancia (por su direccionalidad), todos tendran esta clase*/
 
-.Area.fondoOpaco{
-    background-color: #ff52525e;
-    box-shadow: 0 0 30px rgba(255, 66, 66, 0.712);
-    opacity: 0.2;
-    pointer-events: none;
-}
 
 /*resto de estilos de elementos de los procesos*/
 .iconoSuma{
@@ -136,40 +219,28 @@
     color: #fff; /* Ajusta el color del texto según tus necesidades */
     border-radius: 999px;
     z-index: 1000;
-}.iconoSuma h2{
-    padding: 0px;
-    padding-left: 5px;
-    margin: 0px;
-}.iconoAnular{/* Icono para reemplazar un proceso*/
-    width: 25px;
-    height: 25px;
-    top: 23px;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out; /* Establece la propiedad, duración y función de temporización de la transición. */
+}.iconoSuma img{
     position: absolute;
-    transform: translateX(-50%); /* Centra horizontalmente el hijo en relación al centro del padre */
-    box-shadow: 0 0 10px rgba(255, 240, 103, 0.8); /* Ajusta los valores según tus preferencias */
-    color: #ff5858; /* Ajusta el color del texto según tus necesidades */
-    border-radius: 999px;
-    z-index: 1000;
-}.iconoAnular img{
-    width: 25px;
-    height: 25px;
+    left: -1px;
+    top: -1px;
+    width: 32px;
+    height: 32px;
     border-radius: 999px;
     z-index: 1000;
 }.iconoBorrar{/* Icono para borrar un proceso*/
     width: 25px;
     height: 25px;
-    top: 23px;
     opacity: 0;
     transition: opacity 0.3s ease-in-out; /* Establece la propiedad, duración y función de temporización de la transición. */
     position: absolute;
+    bottom: 0; /* Establece el borde inferior del hijo en la parte inferior del padre */
+    bottom: -15px;
+    left: 50%;
     transform: translateX(-50%); /* Centra horizontalmente el hijo en relación al centro del padre */
-    background-color: #ff8819;
-    box-shadow: 0 0 10px rgba(255, 240, 103, 0.8); /* Ajusta los valores según tus preferencias */
-    color: #ff5858; /* Ajusta el color del texto según tus necesidades */
+    background-color: #e62c2c; /* Ajusta el color de fondo del hijo según tus necesidades */
+    box-shadow: 0 0 10px rgba(247, 197, 132, 0.8); /* Ajusta los valores según tus preferencias */
     border-radius: 999px;
-    z-index: 1000;
+    z-index: 100;
 }.iconoBorrar img{
     width: 25px;
     height: 25px;
@@ -178,7 +249,6 @@
 }
 
 .espaciaAgregarImagen .iconoSuma{
-    opacity: 0.7;
     transition: opacity 0.3s ease-in-out; /* Establece la propiedad, duración y función de temporización de la transición. */
     position: absolute;
     transform: translateX(-50%); /* Centra horizontalmente el hijo en relación al centro del padre */
@@ -188,4 +258,8 @@
     border-radius: 999px;
     z-index: 1000;
     overflow: visible; /* Ignora el desbordamiento del hijo */
+}.opacidad-iconoAgregar-obscuro {
+    opacity: 0;
+}.opacidad-iconoAgregar-claro {
+    opacity: 0.7;
 }
