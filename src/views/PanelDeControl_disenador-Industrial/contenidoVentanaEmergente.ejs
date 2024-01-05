@@ -12,9 +12,12 @@
                 <input id="pegarLaImagen" class="ImagenesDeSubida" type="text" name="pegarLaImagen" placeholder="Pegar una URL de imagen aquí" style="font-size: 16px;" readonly>
             </div>
         </div>
-    <% }else if(tipoDeSituacion == 'borrar'){ %>
+    <% }else if(tipoDeSituacion == 'borrarPaso'){ %>
         <h2 class="anunciado ventanaEmergente">¿Seguro que quieres Borrar la imagen?</h2>
         <h4>La imagen se borrara de manera permanente</h4>
+    <% }else if(tipoDeSituacion == 'borrarArea'){ %>
+        <h2 class="anunciado ventanaEmergente">¿Seguro que quieres Borrar el Area?</h2>
+        <h4>El area se borrara permanentemente</h4>
     <% }else if(tipoDeSituacion == 'CorteIMG'){ %>
     <h2>Cortar Imagen</h1>
     <div id="contenedorImagenARecortar">
@@ -79,7 +82,10 @@
             <% }else if(tipoDeSituacion == 'DescribirYGuardar'){ %>
                 <button class="botonEleccion" id="guardar">Guardar</button>
                 <div id="infoArea" class="<%= area %>" style="display: none;"></div>
-            <% }else if(tipoDeSituacion == 'borrar'){ %>
+            <% }else if(tipoDeSituacion == 'borrarPaso'){ %>
+                <button class="botonEleccion" id="borrar">Borrar</button>
+                <div id="infoArea" class="<%= area %>" style="display: none;"></div>
+            <% }else if(tipoDeSituacion == 'borrarArea'){ %>
                 <button class="botonEleccion" id="borrar">Borrar</button>
                 <div id="infoArea" class="<%= area %>" style="display: none;"></div>
             <% }else if(tipoDeSituacion == 'crearArea'){ %>

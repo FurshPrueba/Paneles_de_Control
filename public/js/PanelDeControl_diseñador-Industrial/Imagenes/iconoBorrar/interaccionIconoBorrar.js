@@ -26,7 +26,7 @@ $(document).ready(function(){
                 method: 'POST',
                 data: {
                     tipoRespuesta: tipoRespuesta, //esta es eel tipo de respuesta que va a ser invocada (puede ser de repetido, abierto y demas)
-                    tipoDeSituacion: 'borrar', //esta es el tipo de situacion que va a ser invocada (puede ser de anular, agregar o de error)
+                    tipoDeSituacion: 'borrarPaso', //esta es el tipo de situacion que va a ser invocada (puede ser de anular, agregar o de error)
                 },
                 dataType: 'html'
             }).done(function(data){

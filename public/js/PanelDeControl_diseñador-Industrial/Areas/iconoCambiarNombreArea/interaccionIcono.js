@@ -25,14 +25,14 @@ $(document).ready(function(){
     var nombreAreaValorCreado;
 
     //Cuando se haga click a un numerador, epezar proceso de cambiar nombre
-    $(document).on("click",  ".Area .numerador", function(){
+    $(document).on("click",  ".CampoNombreGama", function(){
         clickeado = true;
         //Establecer valores
         numerador = $(this); //Este es el campo (el boton) que se oprime
         area = numerador.parent()[0].id;
         iconoEditar = numerador.find(".iconoEditar"); // Este es el icono por defecto del boton
         iconoConfirmacion = numerador.find(".IconoConfirmacion"); //Este es el icono para confirmar cambio en caso de ellos
-        inputCambiarNOmbreArea = numerador.find(".inputNumerador"); //input que te deja cambiar el nombre
+        inputCambiarNOmbreArea = numerador.find(".inputNombreGama"); //input que te deja cambiar el nombre
         nombreArea = numerador.find("h3");
         nombreAreaValorActual = nombreArea.text();
         nombreAreaValorCreado = "";
@@ -40,8 +40,8 @@ $(document).ready(function(){
         //CAMBIOS
             //cambiar el valor de todos los numeradores (para hacer qeu solo haya una opcion de numerador a la vez)
         $(".iconoEditar").addClass("visible"); //Hacer visible
-        $(".nombreArea").addClass("visible"); //Hacer visible
-        $(".inputNumerador.visible").removeClass("visible"); //Quitarle la visivilidad a todos los numeradores
+        $(".nombreGama").addClass("visible"); //Hacer visible
+        $(".inputNombreGama.visible").removeClass("visible"); //Quitarle la visivilidad a todos los numeradores
         $(".IconoConfirmacion.visible").removeClass("visible"); //Quitarle la visivilidad a todos los numeradores
 
         iconoEditar.removeClass("visible"); //Dejar de hacer visible
@@ -53,7 +53,7 @@ $(document).ready(function(){
     });
 
     //Caundo ya es visible, dar la opcion de cambiar lso datos
-    $(document).on("click",  ".inputNumerador", function(evet){
+    $(document).on("click",  ".inputNombreGama", function(evet){
         this.focus(); //Darle el foco a el input (para poder modificar los datos)
     });
 

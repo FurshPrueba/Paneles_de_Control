@@ -1,0 +1,92 @@
+<div class="contenedorAreas">
+    <% 
+      var listaDeOrdenDeAreas;
+    
+      codigos_Areas.forEach((codigoAreas, indice) => { 
+          if (codigoAreas.areaID == area.id) {
+              var codigo_Actual_Areas = codigoAreas.codigo_Areas;
+              var LineaDeAreas = codigo_Actual_Areas.match(/\[[^\]]+\]/g);
+      
+              LineaDeAreas.forEach((lineaAreas) => {
+                  var contenidoCodigo_Areas = lineaAreas.replace(/\[|\]/g, '');
+                  listaDeOrdenDeAreas = contenidoCodigo_Areas.split(';')
+              })
+          }
+      })
+    
+      
+      listaDeOrdenDeAreas.forEach((areaIDcodigo, indice) => { 
+        if(areaIDcodigo.trim() !== ""){
+          area.forEach((elemento, indice) => { 
+            if(elemento.areaID == areaIDcodigo){
+              var areaIDparseada = elemento.areaID.split('');
+              //Si es un area de bodega 
+          
+              if (areaIDparseada[0] == "A") { %>
+                <%- include('unidadArea.ejs', {
+                  area: {
+                      id: elemento.areaID,
+                      nombre: elemento.nombreArea,
+                    },
+                  vista: false,
+                  imagenesAreas: imagenesAreas,
+                  codigos_Imagenes: codigos_Imagenes,
+                  codigos_Areas: codigos_Areas
+                }) %>
+              <% }
+            }
+          })
+        }
+      }) %>
+    </div>
+    <div class="espaciaAgregarArea iconoSumaArea" id="espaciaAgregarArea" class="no-sort">
+        <img src="/css/img/iconoSuma.png" class="no-sort"></img>
+    </div>
+    <!--REORGANIZAR Imagenes-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Imagenes/reorganizacionDeImagenes/reorganizarImagnes.js"></script>
+    <!--REORGANIZAR Areas-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Areas/Reorganizar_Areas/reorganizar.js"></script>
+    
+    
+    <!--Agregar una nueva imagen-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Imagenes/iconoMas/funciones.js"></script>
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Imagenes/iconoMas/ventModalIconoMas.js"></script>
+    <!--borrar una imagen-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Imagenes/iconoBorrar/interaccionIconoBorrar.js"></script>
+    <!--organizar una imagen-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Areas/iconoCambiarNombreArea/interaccionIcono.js"></script>
+
+    <!--Agregar una nueva Area-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Areas/crear_Area/interaccion_CrearArea.js"></script>
+
+    <!--Eliminar una Area-->
+    <script type="text/javascript" src="/js/PanelDeControl_diseñador-Industrial/Areas/iconoBorrar/interaccionIconoBorrarArea.js"></script>
+    
+    
+    <script>
+      var areas = document.querySelectorAll(".Area");
+      areas.forEach((area, indice)=>{
+        var imagenesDeArea = area.querySelector(".imagenPaso");
+        var iconoAgregarPorDefecto = area.querySelector(".espaciaAgregarImagen").querySelector(".iconoSuma");
+    
+        if(imagenesDeArea !== null){
+          iconoAgregarPorDefecto.remove();
+        }else{
+          iconoAgregarPorDefecto.classList.add('opacidad-iconoAgregar-claro');
+        }
+      });
+    
+          // Obtener el contenedor padre y el subelemento hijo
+        var contenedorPadre = document.querySelector('.Areas');
+        var subelementoHijo = contenedorPadre.querySelectorAll('.Area');
+    
+        var anchoContenedorPadre = contenedorPadre.scrollWidth - 250;
+    
+        // Calcular el ancho del contenedor padre incluyendo el ancho del scrollbar
+    
+        subelementoHijo.forEach(element => {    
+          // Aplicar el ancho calculado al subelemento hijo
+          element.style.width = anchoContenedorPadre + 'px';
+        });
+    </script>
+    

@@ -13,48 +13,29 @@ rutas.get('/PanelDeControl_Disenador-Industrial', async(req, res)=>{
         var peticion;
 
         //Acceder las areas existentes 
-        
-        const Areas = await new Promise ((resolve, reject)=>{
-            peticion = 'SELECT * FROM Areas';
-            db.all(peticion, (err, rowsAreas)=>{
+
+        const gamasP = await new Promise ((resolve, reject)=>{
+            peticion = 'SELECT * FROM GamasProductos';
+            db.all(peticion, (err, rowsGamasP)=>{
                 if(err) return reject(err);
-                resolve(rowsAreas);
+                resolve(rowsGamasP);
             })
         });
 
-        const imagenesAreas = await new Promise ((resolve, reject)=>{
-            peticion = 'SELECT * FROM ImagenesAreas';
-            db.all(peticion, (err, rowsImagenes)=>{
+        const versiones = await new Promise ((resolve, reject)=>{
+            peticion = 'SELECT * FROM versionesP';
+            db.all(peticion, (err, rowsVersiones)=>{
                 if(err) return reject(err);
-                resolve(rowsImagenes);
+                resolve(rowsVersiones);
             })
         });
-        
-        const codigos_Imagenes = await new Promise ((resolve, reject)=>{
-            peticion = 'SELECT * FROM Codigo_Imagenes';
-            db.all(peticion, (err, rowsImagenes)=>{
-                if(err) return reject(err);
-                resolve(rowsImagenes);
-            })
-        });
-
-        const codigos_Areas = await new Promise ((resolve, reject)=>{
-            peticion = 'SELECT * FROM Codigo_Areas';
-            db.all(peticion, (err, rowsImagenes)=>{
-                if(err) return reject(err);
-                resolve(rowsImagenes);
-            })
-        });
-
 
         res.render('PanelDeControl_Disenador-Industrial/PanelDeControl', {
             fabrica:{
                 id: req.params.fabrica
             },
-            area: Areas,
-            imagenesAreas: imagenesAreas,
-            codigos_Imagenes: codigos_Imagenes,
-            codigos_Areas: codigos_Areas,
+            versiones: versiones,
+            gamasP: gamasP,
         });
     }catch(err){
         res.json({data: 'Error al cargar datos'});
@@ -67,30 +48,22 @@ rutas.get('/PanelDeControl_Disenador-Industrial', async(req, res)=>{
 rutas.post('/PanelDeControl_Disenador-Industrial/dataImagenes', async(req, res)=>{
     try{
         var peticion;
-
+                
         //Acceder las areas existentes 
         
         //Estas son todas las areas del producto
-        const Areas = await new Promise ((resolve, reject)=>{
-            peticion = 'SELECT * FROM Areas';
-            db.all(peticion, (err, rowsAreas)=>{
-                if(err) return reject(err);
+        const Areas = await new Promise((resolve, reject) => {
+            peticion = `SELECT * FROM "${req.body.nombreAreasVersion}"`; // Concatenar directamente el nombre de la tabla en la consulta
+            db.all(peticion, (err, rowsAreas) => {
+                if (err) return reject(err);
                 resolve(rowsAreas);
-            })
+            });
         });
 
         //El Codigo qeu representa el orden de las areas
         const codigos_Areas = await new Promise ((resolve, reject)=>{
-            peticion = 'SELECT * FROM codigo_Areas';
-            db.all(peticion, (err, rowsImagenes)=>{
-                if(err) return reject(err);
-                resolve(rowsImagenes);
-            })
-        });
-        //El Codigo que representa el orden de las imagenes
-        const codigos_Imagenes = await new Promise ((resolve, reject)=>{
-            peticion = 'SELECT * FROM Codigo_Imagenes';
-            db.all(peticion, (err, rowsImagenes)=>{
+            peticion = `SELECT * FROM "${req.body.nombreOrdenAreasVersion}"`; // Concatenar directamente el nombre de la tabla en la consulta
+            db.all(peticion , (err, rowsImagenes)=>{
                 if(err) return reject(err);
                 resolve(rowsImagenes);
             })
@@ -98,14 +71,79 @@ rutas.post('/PanelDeControl_Disenador-Industrial/dataImagenes', async(req, res)=
 
         //Son todas las imagenes de las areas
         const imagenesAreas = await new Promise ((resolve, reject)=>{
-            peticion = 'SELECT * FROM ImagenesAreas';
+            peticion = `SELECT * FROM "${req.body.nombrePasosVersion}"`; // Concatenar directamente el nombre de la tabla en la consulta
             db.all(peticion, (err, rowsImagenes)=>{
                 if(err) return reject(err);
                 resolve(rowsImagenes);
             })
         });
 
+        //El Codigo que representa el orden de las imagenes
+        const codigos_Imagenes = await new Promise ((resolve, reject)=>{
+            peticion = `SELECT * FROM "${req.body.nombreOrdenPasosVersion}"`; // Concatenar directamente el nombre de la tabla en la consulta
+            db.all(peticion , (err, rowsImagenes)=>{
+                if(err) return reject(err);
+                resolve(rowsImagenes);
+            })
+        });
+
         res.render('PanelDeControl_Disenador-Industrial/opcionesImagenes', {
+            area: Areas,
+            codigos_Areas: codigos_Areas,
+            codigos_Imagenes: codigos_Imagenes,
+            imagenesAreas: imagenesAreas
+        });
+    }catch(err){
+        console.log("Error en la operacion: ".bgRed, err);
+        res.json({data: 'Error al cargar datos'});
+    }
+});
+
+//Ruta para renderizar las opciones de las imagenes (actualizar al agregar una o otro proceso)
+
+rutas.post('/PanelDeControl_Disenador-Industrial/dataDuplicar', async(req, res)=>{
+    try{
+        var peticion;
+        
+        //Acceder las areas existentes 
+        
+        //Estas son todas las areas del producto
+        const Areas = await new Promise((resolve, reject) => {
+            peticion = `SELECT * FROM "${req.body.nombreAreasVersion}"`; // Concatenar directamente el nombre de la tabla en la consulta
+            db.all(peticion, (err, rowsAreas) => {
+                if (err) return reject(err);
+                resolve(rowsAreas);
+            });
+        });
+
+        //El Codigo qeu representa el orden de las areas
+        const codigos_Areas = await new Promise ((resolve, reject)=>{
+            peticion = `SELECT * FROM "${req.body.nombreOrdenAreasVersion}"`; // Concatenar directamente el nombre de la tabla en la consulta
+            db.all(peticion , (err, rowsImagenes)=>{
+                if(err) return reject(err);
+                resolve(rowsImagenes);
+            })
+        });
+
+        //Son todas las imagenes de las areas
+        const imagenesAreas = await new Promise ((resolve, reject)=>{
+            peticion = `SELECT * FROM "${req.body.nombrePasosVersion}"`; // Concatenar directamente el nombre de la tabla en la consulta
+            db.all(peticion, (err, rowsImagenes)=>{
+                if(err) return reject(err);
+                resolve(rowsImagenes);
+            })
+        });
+
+        //El Codigo que representa el orden de las imagenes
+        const codigos_Imagenes = await new Promise ((resolve, reject)=>{
+            peticion = `SELECT * FROM "${req.body.nombreOrdenPasosVersion}"`; // Concatenar directamente el nombre de la tabla en la consulta
+            db.all(peticion , (err, rowsImagenes)=>{
+                if(err) return reject(err);
+                resolve(rowsImagenes);
+            })
+        });
+
+        res.render('PanelDeControl_Disenador-Industrial/duplicarVersion', {
             area: Areas,
             codigos_Areas: codigos_Areas,
             codigos_Imagenes: codigos_Imagenes,

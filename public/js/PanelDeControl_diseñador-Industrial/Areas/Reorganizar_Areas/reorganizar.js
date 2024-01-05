@@ -17,14 +17,11 @@ $(document).ready(function(){
         });
     }
     
-    var sortableList = document.querySelector('.Areas');
-
-    console.log(sortableList.querySelector(".numerador"));
-
+    var sortableList = document.querySelector('.contenedorAreas');
     new Sortable(sortableList, {
         animation: 150,
         direction: 'vertical',
-        handle: '.numerador, .contnombre, .nombreArea, .iconoEditar, .IconoConfirmacion, .inputNumerador',
+        handle: `.Area`,
         filter: '.no-sort', // Elementos con la clase 'no-sort' no serán arrastrables
         onEnd: function (/**Event*/evt) {
             const reorderableItems = Array.from(evt.target.querySelectorAll('.Area'))
@@ -36,11 +33,11 @@ $(document).ready(function(){
             console.log(reorderableItems);
             console.log(area);
 
-            const Data = {area: area.trim(), reorderableItems: reorderableItems.trim()};
+            const Data = {reorderableItems: reorderableItems.trim()};
             
-            /*
+            
             $.ajax({
-                url: '/PanelDeControl_disenador-Industrial/reorganizarImagenes',
+                url: '/PanelDeControl_disenador-Industrial/reorganizarArea',
                 type: 'POST',
                 data: Data,
                 success: function(response) {
@@ -51,7 +48,6 @@ $(document).ready(function(){
                     reject(error);
                 }
             });
-            */
         }
     });
 });

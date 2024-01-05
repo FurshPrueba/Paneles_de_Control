@@ -12,6 +12,20 @@
     width: 100%;
     height: auto;
     max-height: 270px;
+}#contenedorVersiones{
+    box-shadow: 5px 5px 10px rgba(184, 184, 184, 0.8); /* Ajusta la opacidad aquí */
+    background: linear-gradient(
+        45deg,
+        rgb(0, 0, 0),   /* Escala de grises más clara */
+        rgb(92, 92, 92), /* Escala de grises intermedia */
+        rgb(139, 139, 139)   /* Escala de grises más clara */
+    );
+    padding: 0px;
+    border-radius: 7px;
+    margin-right: 30px;
+    width: 98%;
+    height: auto;
+    max-height: 270px;
 }
 /*Cunado se oprima el boton de sumar que se ponga opaco el fondo de las opcioens de la linea de produccion*/
 
@@ -21,10 +35,9 @@
 }
 
 .areaEscroleableY{
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     margin-left: 0;
-    scroll-snap-type: y mandatory; /* Establece el desplazamiento horizontal obligatorio */
 }
 /* PROCESOS DE LA LINEA DE PRODUCCION */
 .Areas{ /*Areas en comun (el contenedor de todas las areas)*/
@@ -61,7 +74,7 @@
     padding-left: 6px;
     margin-bottom: 0px;
     overflow: visible; /* Permitir que el contenido desborde el contenedor */
-    padding-left: 190px;
+    padding-left: 270px;
     width: 100%;
 }
 
@@ -72,11 +85,11 @@
     position: absolute;
     display: flex;
     align-items: center;
-    left: 5px;
+    left: 50px;
     z-index: 1000;
     height: 24px;
     width: 148px;
-    top: 15px;
+    top: 13px;
     margin-left: 4px;
     margin-right: 4px;
     color: #8a8a8a;
@@ -84,6 +97,10 @@
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.8); /* Ajusta la opacidad aquí */
     border-radius: 20px;
     transition: 0.3s;
+    user-select: none; /* Evita la selección de texto */
+    -moz-user-select: none; /* Para Firefox */
+    -webkit-user-select: none; /* Para navegadores basados en Webkit como Chrome y Safari */
+    -ms-user-select: none; /* Para Internet Explorer/Edge */
 }.Area .numerador:hover{
     background-color: rgb(133, 133, 133);
     box-shadow: 3px 3px 5px rgba(177, 177, 177, 0.8); /* Ajusta la opacidad aquí */
@@ -95,17 +112,25 @@
     display: block;
     opacity: 1;
     color: #fff;
-}.Area .numerador .iconoEditar{
+}.contnombre h3.visible{
+    display: block;
+    opacity: 1;
+    color: #fff;
+}.nombreGama{
+    display: block;
+    opacity: 1;
+    color: #fff;
+}.iconoEditar{
     display: none;
     opacity: 0;
     z-index: 1000;
     height: 23px;
     width: 23px;
     margin-left: auto;
-}.Area .numerador .iconoEditar.visible{
+}.iconoEditar.visible{
     display: block;
     opacity: 0.7;
-}.Area .numerador .IconoConfirmacion{
+}.IconoConfirmacion{
     display: none;
     opacity: 0;
     width: 30px;
@@ -114,16 +139,16 @@
     border-radius: 999px;
     box-shadow: 0 0 10px rgba(89, 151, 9, 0.8); /*Ajusta la opacidad aquí */
     transition: 0.2s;
-}.Area .numerador .IconoConfirmacion img{
+}.IconoConfirmacion img{
     position: relative;
     width: 48px;
     height: 48px;
     left: -9px;
     top: -9px;
-}.Area .numerador .IconoConfirmacion.visible{
+}.IconoConfirmacion.visible{
     display: block;
     opacity: 0.7;
-}.Area .numerador .IconoConfirmacion:hover{
+}.IconoConfirmacion:hover{
     background-color: white;
     box-shadow: 0 0 10px rgba(133, 233, 2, 0.8); /*Ajusta la opacidad aquí */
     border: 10px rgba(133, 233, 2, 0.8);
@@ -145,34 +170,26 @@
 }.inputNumerador.visible{
     display: block;
     opacity: 1;
-}.Area .numerador.error{
+}.inputNombreGama{
+    position: relative;
+    margin-left: 4px;
+    margin-right: 4px;
+    display: none;
+    opacity: 0;
+    z-index: 2000;
+    height: 25px;
+    width: 95px;
+    border-radius: 2px;
+    border: 0px;
+    border-bottom: 1px solid black;
+    background-color: rgba(71, 71, 71, 0);
+}.inputNombreGama.visible{
+    display: block;
+    opacity: 1;
+}.error{
     box-shadow: 0 0 10px rgba(233, 75, 2, 0.8); /*Ajusta la opacidad aquí */
-}.Area .numerador.exito{
+}.exito{
     box-shadow: 0 0 10px rgba(2, 233, 106, 0.8); /*Ajusta la opacidad aquí */
-}
-
-
-/* Apartado de el icono de agragar una area (el icoo de suma grande) */
-.espaciaAgregarArea{
-    transition: 0.4s;
-    background-color: #3da7b1; /* Ajusta el color de fondo del hijo según tus necesidades */
-    box-shadow: 0 0 10px rgba(132, 220, 247, 0.8); /* Ajusta los valores según tus preferencias */
-    height:50px;
-    width: 50px;
-    overflow: visible; /* Permitir que el contenido desborde el contenedor */
-    border-radius: 999px;
-    /*CENTRAR*/
-    margin-left: 55px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-}.espaciaAgregarArea img{
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Recorta el espacio en blanco */
-}.espaciaAgregarArea:hover{
-    box-shadow: 0 0 15px rgba(44, 195, 221, 0.8); /* Ajusta la opacidad aquí */
-    background-color: #2ddbc4; /* Ajusta el color de fondo del hijo según tus necesidades */
 }
 
 
@@ -245,6 +262,51 @@
     width: 25px;
     height: 25px;
     border-radius: 999px;
+    z-index: 1000;
+}
+
+
+
+/* Apartado de el icono de agragar una area (el icoo de suma grande) */
+.espaciaAgregarArea{
+    position: relative;
+    transition: 0.4s;
+    background-color: #3da7b1; /* Ajusta el color de fondo del hijo según tus necesidades */
+    box-shadow: 0 0 10px rgba(132, 220, 247, 0.8); /* Ajusta los valores según tus preferencias */
+    height:40px;
+    width: 40px;
+    overflow: visible; /* Permitir que el contenido desborde el contenedor */
+    border-radius: 999px;
+    /*CENTRAR*/
+    left: 110px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}.espaciaAgregarArea img{
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta el espacio en blanco */
+}.espaciaAgregarArea:hover{
+    box-shadow: 0 0 15px rgba(44, 195, 221, 0.8); /* Ajusta la opacidad aquí */
+    background-color: #2ddbc4; /* Ajusta el color de fondo del hijo según tus necesidades */
+}
+
+.iconoBorrarArea{/* Icono para borrar un proceso*/
+    width: 34px;
+    height: 34px;
+    position: absolute;
+    left: 30px;
+    top: 10px;
+    transform: translateX(-50%); /* Centra horizontalmente el hijo en relación al centro del padre */
+    background-color: #e62c2c; /* Ajusta el color de fondo del hijo según tus necesidades */
+    box-shadow: 0 0 10px rgba(247, 197, 132, 0.8); /* Ajusta los valores según tus preferencias */
+    border-radius: 999px;
+    padding: 3px;
+    z-index: 100;
+}.iconoBorrarArea img{
+    width: 98%;
+    height: 98%;
+    object-fit: cover; /* Recorta el espacio en blanco */
     z-index: 1000;
 }
 

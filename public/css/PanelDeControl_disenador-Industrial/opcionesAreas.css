@@ -12,7 +12,27 @@
     max-width: 95%;
     height: auto;
     max-height: 700px;
+}.selectorVersiones{
+    display: inline-block;
+    border-radius: 20px;
+    background-color: rgb(116, 116, 116);
+    box-shadow: 0 0 50px rgba(27, 27, 27, 0.8); /* Ajusta los valores según tus preferencias */
+    padding: 10px;
+    margin: 30px;
+    margin-top: 20px;
+    margin-left: 0px;
+    width:  450px;
+    height: auto;
+    max-height: 700px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 20%);
+}#listaAreas.invisible{
+    display: none;
+}.selectorVersiones.invisible{
+    display: none;
 }
+
 
 .areaEscroleableX{
     margin-bottom: 4px;

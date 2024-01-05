@@ -1,58 +1,67 @@
-<div class="contenedorAreas">
-    <div class="Area" id="<%= area.id %>">
-        <div class="numerador no-sortImage" id="numerador_<%= area.id %>">
-            <div class="contnombre">
-                <h3 class="nombreArea visible"><%= area.nombre %></h3>
-                <input class="inputNumerador" value="<%= area.nombre %>" type="text" maxlength="10" placeholder="<%= area.nombre %>">
-            </div>
-            <img class="iconoEditar visible" src="/css/img/iconoEditar.png">
-                <div class="IconoConfirmacion">
-                <img  src="/css/img/iconoConfirmar_flecha.png">
-            </div>
+<div class="Area" id="<%= area.id %>">
+
+    <% if(vista !== true){ %>
+        <div class="iconoBorrarArea no-sortImage no-sort"><img src="/css/img/iconoBorrar.png"></img></div>
+    <% } %>
+    
+
+    <div class="numerador no-sortImage" id="numerador_<%= area.id %>" >
+        <div class="contnombre">
+            <h3 class="nombreArea visible"><%= area.nombre %></h3>
+            <input class="inputNumerador" value="<%= area.nombre %>" type="text" maxlength="10" placeholder="<%= area.nombre %>">
         </div>
+        <img class="iconoEditar visible" src="/css/img/iconoEditar.png">
+        <div class="IconoConfirmacion">
+            <img class="imagenEditar"  src="/css/img/iconoConfirmar_flecha.png">
+        </div>
+    </div>
+
+    <%
+    var numeroImagenesDeArea = 0; 
+    var listaDeOrdenDeImagenes;
+
+    codigos_Imagenes.forEach((codigoAreas, indice) => { 
+        if (codigoAreas.areaID == area.id) {
+            var codigo_Actual_Imagenes = codigoAreas.codigo_ordenImagenes;
+            var LineaDeImagenes = codigo_Actual_Imagenes.match(/\[[^\]]+\]/g);
     
-        <%
-        var numeroImagenesDeArea = 0; 
-        var listaDeOrdenDeImagenes;
+            LineaDeImagenes.forEach((lineaImagenes) => {
+                var contenidoCodigo_Imagenes = lineaImagenes.replace(/\[|\]/g, '');
+                listaDeOrdenDeImagenes = contenidoCodigo_Imagenes.split(';')
+            })
+        }
+    })
+
     
-        codigos_Imagenes.forEach((codigoAreas, indice) => { 
-            if (codigoAreas.areaID == area.id) {
-                var codigo_Actual_Imagenes = codigoAreas.codigo_ordenImagenes;
-                var LineaDeImagenes = codigo_Actual_Imagenes.match(/\[[^\]]+\]/g);
-        
-                LineaDeImagenes.forEach((lineaImagenes) => {
-                    var contenidoCodigo_Imagenes = lineaImagenes.replace(/\[|\]/g, '');
-                    listaDeOrdenDeImagenes = contenidoCodigo_Imagenes.split(';')
-                })
-            }
-        })
-    
-        
-        listaDeOrdenDeImagenes.forEach((imagenID, indice) => { 
-            imagenesAreas.forEach((imagen, indice) => { 
-                if (imagen.areaID == area.id) {
-                    if(imagenID == imagen.imagenID){
-                        // Convertir el buffer en una URL de datos
-                        const imagenDataURL = `data:image/jpeg;base64,${imagen.imagenEncriptada.toString('base64')}`;
-                        %>
-                        <div id="<%= imagen.imagenID %>" class="contenedorImagen">
-                            <img src="<%= imagenDataURL %>" alt="" class="imagenPaso">
+    listaDeOrdenDeImagenes.forEach((imagenID, indice) => { 
+        imagenesAreas.forEach((imagen, indice) => { 
+            if (imagen.areaID == area.id) {
+                if(imagenID == imagen.imagenID){
+                    // Convertir el buffer en una URL de datos
+                    const imagenDataURL = `data:image/jpeg;base64,${imagen.imagenEncriptada.toString('base64')}`;
+                    %>
+                    <div id="<%= imagen.imagenID %>" class="contenedorImagen">
+                        <img src="<%= imagenDataURL %>" alt="" class="imagenPaso">
+                        
+                        <% if(vista !== true){ %> 
                             <div class="iconoSuma no-sortImage" style="width: 30px;height: 30px; left: 58px;top: 13px;">
                                 <img src="/css/img/iconoSuma.png"></img>
                             </div>   
-                            <div class="iconoBorrar no-sortImage"><img src="/css/img/iconoBorrar.png"></img></div>
-                        </div>
-                    <% numeroImagenesDeArea++
-                    }
+                            <div class="iconoBorrar no-sortImage no-sort"><img src="/css/img/iconoBorrar.png"></img></div>
+                        <% } %> 
+                    </div>
+                <% numeroImagenesDeArea++
                 }
-            });
-        }) %>
-        <% //if (numeroImagenesDeArea == 0) { %>
-            <div id="0-<%= area.id %>" class="espaciaAgregarImagen">
-                <div type="submit" name="enviarFormularioIconoAgregar" class="iconoSuma" style="display: block;width: 30px;height: 30px; left: 190px;top: 17px;">
-                    <img src="/css/img/iconoSuma.png"></img>
+            }
+        });
+    }) %>
+    <% //if (numeroImagenesDeArea == 0) { 
+        if(vista !== true){ %>
+            <div id="0-<%= area.id %>" class="espaciaAgregarImagen no-sort">
+                <div type="submit" name="enviarFormularioIconoAgregar" class="iconoSuma no-sort" style="display: block;width: 30px;height: 30px; left: 275px;top: 17px;">
+                    <img class="no-sort" src="/css/img/iconoSuma.png"></img>
                 </div>
             </div>
-        <% //} %>
-    </div>
+        <%    }
+     //} %>
 </div>

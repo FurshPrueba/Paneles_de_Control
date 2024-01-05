@@ -62,12 +62,14 @@ app.get('/PanelDeControl_Disenador-Industrial', require('./routes/PanelDeControl
 //la ruta para pedirle al servidor el contenido de la interaccion de la pagina emergente al modificar la linea de produccion, tanto para agregar como para anular un [Producto]
 app.post('/PanelDeControl_Disenador-Industrial/contenidoVentana', require('./routes/PanelDeControl_disenador-Industrial/rutaPaneldeControl.js'));
 
-//para la ruta del panel de control de la linea de produccion
+//para la ruta del panel de control de la linea de produccion no editable de una version
 app.post('/PanelDeControl_Disenador-Industrial/dataImagenes', require('./routes/PanelDeControl_disenador-Industrial/rutaPaneldeControl.js'));
+
+//para la ruta del panel de control de la linea de produccion editable de una nueva version
+app.post('/PanelDeControl_Disenador-Industrial/dataDuplicar', require('./routes/PanelDeControl_disenador-Industrial/rutaPaneldeControl.js'));
 
 //para la ruta del panel de control de la linea de produccion
 app.post('/PanelDeControl_Disenador-Industrial/cambiar_nombreArea', require('./routes/PanelDeControl_disenador-Industrial/rutaPaneldeControl.js'));
-
 
     //IMAGENES
 //Opciones de agregado de procesos
@@ -88,7 +90,9 @@ app.post('/PanelDeControl_Disenador-Industrial/agregarImagen', require('./routes
 //Opciones de agregado de procesos
     //-aceptar
     app.post('/PanelDeControl_Disenador-Industrial/agregarArea', require('./routes/PanelDeControl_disenador-Industrial/Areas/panelControl_AgregarArea.js'));
-
+//Opciones de agregado de procesos
+    //-aceptar
+    app.post('/PanelDeControl_disenador-Industrial/reorganizarArea', require('./routes/PanelDeControl_disenador-Industrial/Areas/panelControl_reorganizarAreas.js'));
 
 
 app.listen(app.get('port'), ()=>{

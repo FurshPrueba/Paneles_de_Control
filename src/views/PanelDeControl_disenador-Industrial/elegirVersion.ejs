@@ -1,0 +1,90 @@
+<%
+versiones.forEach((version, indice)=>{
+    if(version.estadoAtemporalVersion == "Activo"){
+        if(version.gamaProductoID == gama){
+        %>
+        <div id="<%= version.versionesID %>" class="version <%= version.estadoVersion %>">
+            <div class="campoVersion activada">
+                <h3><%= version.gamaProductoID %> <%= version.versionesID %> | <%= version.nombreVersion %> </h3>
+            </div>
+            
+            
+            <div class="contenedorIconopausaReproducir <%= version.estadoVersion %>">
+                <% 
+                if(version.estadoVersion == "Activo"){
+                    %>
+                   <img class="iconoPausa" style="display: block;"  src="/css/img/iconoPausa.png">
+                   <img class="iconoReproducir" style="display: none;" src="/css/img/iconoReproducir.png">
+                    <%
+                } 
+                %>
+                   
+                   <% 
+               if(version.estadoVersion == "Inactivo"){
+                   %>
+                   <img class="iconoPausa" style="display: none;"  src="/css/img/iconoPausa.png">
+                   <img class="iconoReproducir" style="display: block;" src="/css/img/iconoReproducir.png">
+                   <%
+               } 
+                %>
+               </div>
+                   
+               
+               <div class="contenedorIconoDuplicar <%= version.estadoVersion %>">
+                   <img class="iconoDuplicar" style="display: block;"  src="/css/img/iconoDuplicar.png">
+               </div>
+    
+        </div>
+
+        <%
+        }
+    }
+});
+
+versiones.forEach((version, indice)=>{
+    if(version.estadoAtemporalVersion !== "Activo"){
+        if(version.gamaProductoID == gama){
+        %>
+        <div id="<%= version.versionesID %>" class="version <%= version.estadoVersion %>">
+            <div class="campoVersion">
+                <h3><%= version.gamaProductoID %> <%= version.versionesID %> | <%= version.nombreVersion %> </h3>
+            </div>
+            
+            
+            <div class="contenedorIconopausaReproducir <%= version.estadoVersion %>">
+                <% 
+                if(version.estadoVersion == "Activo"){
+                    %>
+                   <img class="iconoPausa" style="display: block;"  src="/css/img/iconoPausa.png">
+                   <img class="iconoReproducir" style="display: none;" src="/css/img/iconoReproducir.png">
+                    <%
+                } 
+                %>
+                   
+                   <% 
+               if(version.estadoVersion == "Inactivo"){
+                   %>
+                   <img class="iconoPausa" style="display: none;"  src="/css/img/iconoPausa.png">
+                   <img class="iconoReproducir" style="display: block;" src="/css/img/iconoReproducir.png">
+                   <%
+               } 
+                %>
+               </div>
+                   
+               
+               <div class="contenedorIconoDuplicar <%= version.estadoVersion %>">
+                   <img class="iconoDuplicar" style="display: block;"  src="/css/img/iconoDuplicar.png">
+               </div>
+    
+        </div>
+
+        <%
+        }
+    }
+});
+if(versiones.length == 0){
+%>
+    <h3>NO HAY VERSIONES</h3>
+<%
+}
+%>

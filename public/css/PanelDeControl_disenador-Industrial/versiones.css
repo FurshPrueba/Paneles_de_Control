@@ -1,0 +1,83 @@
+.version{
+    display: flex;
+    align-content: center; /* Alinea al final del contenedor */
+    position: relative;
+    height: 50px;
+    padding-left: 6px;
+    margin-bottom: 0px;
+    width: 100%;
+}.campoVersion{
+    position: relative;
+    left: 29px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    height: 24px;
+    width: 300px;
+    margin: auto;
+    color: #5c5c5c;
+    background-color: rgb(71, 71, 71);
+    box-shadow: 3px 3px 5px rgba(107, 107, 107, 0.8); /* Ajusta la opacidad aquí */
+    border-radius: 20px;
+    transition: 0.3s;
+    user-select: none; /* Evita la selección de texto */
+    -moz-user-select: none; /* Para Firefox */
+    -webkit-user-select: none; /* Para navegadores basados en Webkit como Chrome y Safari */
+    -ms-user-select: none; /* Para Internet Explorer/Edge */
+}.campoVersion{
+    background-color: rgb(71, 124, 92);
+    box-shadow: 3px 3px 5px rgba(31, 73, 31, 0.7); /* Ajusta la opacidad aquí */
+}.campoVersion:hover{
+    background-color: rgba(168, 168, 168, 0.6);
+    box-shadow: 3px 3px 5px rgba(214, 214, 214, 0.8); /* Ajusta la opacidad aquí */
+}
+
+.contenedorIconopausaReproducir{
+    position: relative;
+    transition: 0.4s;
+    background-color: #3da7b1; /* Ajusta el color de fondo del hijo según tus necesidades */
+    box-shadow: 0 0 10px rgba(132, 220, 247, 0.8); /* Ajusta los valores según tus preferencias */
+    height:32px;
+    width: 32px;
+    overflow: visible; /* Permitir que el contenido desborde el contenedor */
+    border-radius: 999px;
+    /*CENTRAR*/
+    left: -358px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}.contenedorIconopausaReproducir img{
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta el espacio en blanco */
+}.contenedorIconopausaReproducir:hover{
+    box-shadow: 0 0 15px rgba(44, 195, 221, 0.8); /* Ajusta la opacidad aquí */
+    background-color: #2ddbc4; /* Ajusta el color de fondo del hijo según tus necesidades */
+}.contenedorIconoDuplicar{
+    position: relative;
+    transition: 0.4s;
+    background-color: #b1883d; /* Ajusta el color de fondo del hijo según tus necesidades */
+    box-shadow: 0 0 10px rgba(247, 184, 132, 0.8); /* Ajusta los valores según tus preferencias */
+    height:35px;
+    width: 35px;
+    overflow: visible; /* Permitir que el contenido desborde el contenedor */
+    border-radius: 999px;
+    /*CENTRAR*/
+    left: -24px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}.contenedorIconoDuplicar img{
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta el espacio en blanco */
+}.contenedorIconoDuplicar:hover{
+    box-shadow: 0 0 15px rgba(221, 203, 44, 0.8); /* Ajusta la opacidad aquí */
+    background-color: #dfc77b; /* Ajusta el color de fondo del hijo según tus necesidades */
+}.iconoReproducir{
+    width: 117% !important;
+    height: 117% !important;
+    position: relative;
+    left: -3px;
+    top: -3px;
+}
